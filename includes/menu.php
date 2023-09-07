@@ -9,13 +9,13 @@
         <div class="collapse navbar-collapse" id="list1">
             <ul class="navbar-nav ms-auto text-center">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+                    <a class="nav-link active" aria-current="page" href="index">Accueil</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="occasions">Occasions</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Nous contacter</a>
+                    <a class="nav-link" href="contactus">Nous contacter</a>
                 </li>
             </ul>
         </div>
