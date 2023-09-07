@@ -1,0 +1,96 @@
+.c-item {
+    height: 480px;
+}
+  
+.c-img {
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.6);
+}
+
+.nav-link {
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    opacity: 0;
+    transition: all 0.2s;
+    height: 2px;
+    width: 100%;
+    background-color: #D92332;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.nav-link:hover::after {
+    opacity: 1;
+}
+
+body::-webkit-scrollbar {
+    display:none;
+}
+
+body {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.navbar{
+    padding-left:100px;
+    padding-right:100px;
+}
+
+.services {
+    background-color: #D92332;
+    width:auto;
+    color:white;
+    text-align:center;
+    padding-top:1rem;
+    padding-left:5rem;
+    padding-right:5rem;
+    padding-bottom: 1rem;
+}
+
+.services h1 {
+    display: inline-block;
+    position:relative;
+}
+
+.services h1:after {
+    content: "";
+    height: 5px;
+    width: 50%;
+    background-color: white;
+    position: absolute;
+    bottom: -.3em;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.services-row {
+    padding-top:4rem;
+    margin-bottom:4rem;
+}
+
+.footer {
+    font-size:12px;
+}
+
+.btn-darkred {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #D92332;
+    --bs-btn-border-color: #D92332;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #c91827;
+    --bs-btn-hover-border-color: #f01628;
+    --bs-btn-focus-shadow-rgb: 49,132,253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #D92332;
+    --bs-btn-active-border-color: #1d1e20;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #D92332;
+    --bs-btn-disabled-border-color: #D92332;
+}
