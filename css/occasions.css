@@ -1,0 +1,26 @@
+.occasions-container {
+    margin-left:2rem;
+    padding-right:2rem;
+}
+
+.priceBadge {
+    margin-top: -60px;
+    margin-bottom: 3px;
+    font-size:18px;
+}
+
+.itemShadow {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.custom-spacing {
+    margin-bottom: 20px;
+}
+
+.annonceTabColor {
+    color: black;
+}
+
+.annonceTabColor:hover {
+    color: black;
+}

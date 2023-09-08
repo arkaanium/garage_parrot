@@ -1,0 +1,16 @@
+.reviewAuthor {
+    display: flex;
+    align-items: center;
+}
+
+.reviewAuthor i {
+    padding-right:15px;
+}
+
+.reviewAuthor span {
+    font-size:17px;
+}
+
+.reviewDate {
+    font-size:14px;
+}
