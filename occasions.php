@@ -24,19 +24,19 @@
                         <h5>Kilométrage</h5>
                         <div class="input-group">
                             <input class="form-control" id="kmMin" type="number" placeholder="Km min">
-                            <input class="form-control" type="number" placeholder="Km max">
+                            <input class="form-control" id="kmMax" type="number" placeholder="Km max">
                         </div>
                         <br>
                         <h5>Prix</h5>
                         <div class="input-group">
-                            <input class="form-control" type="number" placeholder="Prix min">
-                            <input class="form-control" type="number" placeholder="Prix max">
+                            <input class="form-control" id="priceMin" type="number" placeholder="Prix min">
+                            <input class="form-control" id="priceMax" type="number" placeholder="Prix max">
                         </div>
                         <br>
                         <h5>Année</h5>
                         <div class="input-group">
-                            <input class="form-control" type="number" placeholder="Année min">
-                            <input class="form-control" type="number" placeholder="Année max">
+                            <input class="form-control" id="yearMin" type="number" placeholder="Année min">
+                            <input class="form-control" id="yearMax" type="number" placeholder="Année max">
                         </div>
                     </form>
                     <br>
