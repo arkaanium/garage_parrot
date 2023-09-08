@@ -1,14 +1,14 @@
 <footer class="footer bg-dark py-5">
-    <div class="row align-items-center">
-        <div class="col">
-            <div class="container text-light text-center">
+    <div class="row align-items-center text-center">
+        <div class="col-md">
+            <div class="container text-light">
                 <p class="display-5 mb-3">Garage V.Parrot</p>
                 <small class="text-white-50">&copy; Copyright 2023. Tous les droits réservés.</small>
             </div>
         </div>
-        <div class="col">
-            <h5 class="text-light display-6 text-uppercase ">Horaires d'ouverture</h5>
-            <table class="table table-sm table-dark w-50 table-borderless">
+        <div class="col-md py-2">
+            <h5 class="text-light display-6 text-uppercase">Horaires d'ouverture</h5>
+            <table class="table table-sm table-dark w-50 table-borderless m-auto">
                 <tbody>
                     <tr>
                         <th scope="row">Lundi</th>
