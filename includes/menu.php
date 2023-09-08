@@ -1,6 +1,6 @@
 <nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-dark">
     <div class="container-fluid justify-content-center">
-        <a class="navbar-brand fs-5 brand" href="#"><img src="img/logo.png" width="150"></a>
+        <a class="navbar-brand fs-5 brand" href="index"><img src="img/logo.png" width="150"></a>
         
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#list1" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
