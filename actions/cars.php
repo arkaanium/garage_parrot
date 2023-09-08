@@ -50,6 +50,7 @@ if(isset($_SESSION['id']) && isset($_GET['do'])){
                     'price' => htmlspecialchars($_POST['prix']),
                     'kilometers' => htmlspecialchars($_POST['km'])
                 ]);
+                header('Location: ../addCar?step=2');
             }else{
                 header('Location: ../gestion');
             }
