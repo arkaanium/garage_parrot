@@ -1,4 +1,12 @@
-<?php include('includes/config.php');?>
+<?php
+if(!isset($_GET['id'])){
+    header('Location: occasions');
+    exit();
+}
+
+require('includes/config.php');
+require('includes/db.php');
+?>
 <!doctype html>
 <html lang="fr">
     <head>
@@ -19,16 +27,29 @@
             <a href="occasions" class="btn btn-sm btn-outline-dark"><i class="fas fa-left-long"></i> Retour</a>
             <br>
             <br>
+            <?php
+            $getCarInfo = $bdd->prepare('SELECT id, general_informations, vehicle_power, consumption, warranty, options, year, price, kilometers, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date FROM cars WHERE id=:id');
+            $getCarInfo->execute([ 'id' => htmlspecialchars($_GET['id']) ]);
+            $carInfo = $getCarInfo->fetch();
+
+            $generalInformations = json_decode($carInfo['general_informations']);
+            $vehiclePower = json_decode($carInfo['vehicle_power']);
+            $options = json_decode($carInfo['options']);
+            $consumption = json_decode($carInfo['consumption']);
+            ?>
             <div class="row">
                 <div class="col-md-8">
                     <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
+                            <?php
+                            $getImages = $bdd->prepare('SELECT name FROM images WHERE annonce_id=:id');
+                            $getImages->execute([ 'id' => htmlspecialchars($carInfo['id']) ]);
+                            while($image = $getImages->fetch()){
+                            ?>
                             <div class="carousel-item active">
-                                <img src="https://www.automobile-magazine.fr/asset/cms/13275/config/12460/le-restylage-na-pas-bouleverse-le-temperament-de-cette-citroen-c3-elle-continue-a-privilegier-le-confort-au-dynamisme.jpg" class="d-block w-100" alt="...">
+                                <img src="img/uploads/<?=$image['name'];?>" class="d-block w-100" alt="...">
                             </div>
-                            <div class="carousel-item">
-                                <img src="https://www.automobile-magazine.fr/asset/cms/13275/config/12460/le-restylage-na-pas-bouleverse-le-temperament-de-cette-citroen-c3-elle-continue-a-privilegier-le-confort-au-dynamisme.jpg" class="d-block w-100" alt="...">
-                            </div>
+                            <?php } ?>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -44,12 +65,12 @@
                 <div class="col-md">
                     <div class="card text-center" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
                         <div class="card-body">
-                            <h5 class="card-title fw-bolder">CITROËN C3</h5>
+                            <h5 class="card-title fw-bolder"><?=strtoupper($generalInformations->marque);?> <?=strtoupper($generalInformations->modele);?></h5>
                             <br>
-                            <p>2021 | 11 568 km | Manuelle | Diesel</p>
-                            <h5><u>13 990€</u></h5>
+                            <p><?=$carInfo['year'];?> | <?=number_format($carInfo['kilometers'],'0',' ',' ');?> km | <?=ucfirst(strtolower($generalInformations->motorisation));?> | <?=ucfirst(strtolower($generalInformations->energie));?></p>
+                            <h5><u><?=number_format($carInfo['price'],'0',' ',' ');?>€</u></h5>
                             <br>
-                            <p class="text-muted">Publiée le 25/12/2023</p>
+                            <p class="text-muted">Publiée le <?=$carInfo['creation_date'];?></p>
                             <button class="btn btn-darkred" onclick="scrollToForm()">Nous contacter</button>
                         </div>
                     </div>
@@ -73,36 +94,53 @@
                         <div class="tab-pane fade show active" id="general-informations-pane" role="tabpanel" aria-labelledby="general-informations-tab" tabindex="0">
                             <br>    
                             <h5>Informations générales</h5>
-                            <p class="text-muted">CITROËN C3</p>
+                            <p class="text-muted"><?=strtoupper($generalInformations->marque);?> <?=strtoupper($generalInformations->modele);?></p>
                             <br>
+                            <?php
+                            switch ($generalInformations->technique) {
+                                case 'yes':
+                                    $technique = "Oui";
+                                    break;
+                                case 'no':
+                                    $technique = "Non";
+                                    break;
+                            }
+                            switch ($generalInformations->premiere_main) {
+                                case 'yes':
+                                    $premiere_main = "Oui";
+                                    break;
+                                case 'no':
+                                    $premiere_main = "Non";
+                                    break;
+                            }
+                            ?>
                             <div class="row">
                                 <div class="col-md">
                                     <h5>Caractéristiques</h5>
-                                    <p><b>Année :</b> 2021</p>
-                                    <p><b>Provenance :</b> France</p>
-                                    <p><b>Mise en circulation :</b> 14/10/2021</p>
-                                    <p><b>Contrôle technique :</b> Non requis</p>
-                                    <p><b>Première main :</b> Oui</p>
-                                    <p><b>Kilométrage compteur :</b> 11 165 km</p>
-                                    <p><b>Energie :</b> Essence</p>
-                                    <p><b>Boite de vitesse :</b> Manuelle</p>
-                                    <p><b>Couleur :</b> blanc</p>
-                                    <p><b>Nombre de portes :</b> 5</p>
-                                    <p><b>Nombre de places :</b> 5</p>
-                                    <p><b>Longueur :</b> 4 m</p>
-                                    <p><b>Volume du coffre :</b> Grand coffre</p>
+                                    <p><b>Année :</b> <?=$carInfo['year'];?></p>
+                                    <p><b>Provenance :</b> <?=ucfirst(strtolower($generalInformations->provenance));?></p>
+                                    <p><b>Mise en circulation :</b> <?=$carInfo['year'];?></p>
+                                    <p><b>Contrôle technique :</b> <?=$technique;?></p>
+                                    <p><b>Première main :</b> <?=$premiere_main;?></p>
+                                    <p><b>Kilométrage compteur :</b> <?=number_format($carInfo['kilometers'],'0',' ',' ');?> km</p>
+                                    <p><b>Energie :</b> <?=ucfirst(strtolower($generalInformations->energie));?></p>
+                                    <p><b>Boite de vitesse :</b> <?=ucfirst(strtolower($generalInformations->motorisation));?></p>
+                                    <p><b>Couleur :</b> <?=ucfirst(strtolower($generalInformations->couleur));?></p>
+                                    <p><b>Nombre de portes :</b> <?=$generalInformations->portes;?></p>
+                                    <p><b>Nombre de places :</b> <?=$generalInformations->places;?></p>
+                                    <p><b>Longueur :</b> <?=$generalInformations->longueur;?> m</p>
                                     <br>
                                 </div>
                                 <div class="col-md">
                                     <h5>Puissance du véhicule</h5>
-                                    <p><b>Puissance fiscale :</b> 3 CV</p>
-                                    <p><b>Puissance :</b> (DIN) 60 ch</p>
+                                    <p><b>Puissance fiscale :</b> <?=$vehiclePower->puissance_fisc;?> CV</p>
+                                    <p><b>Puissance :</b> (DIN) <?=$vehiclePower->puissance;?> ch</p>
                                     <br>
                                     <h5>Consommation</h5>
-                                    <p><b>Norme euro :</b> EURO6</p>
-                                    <p><b>Crit'Air :</b> 1</p>
-                                    <p><b>Consommation mixte :</b> 5,6L/100 km</p>
-                                    <p><b>Emission de CO2 :</b> 122 g/km</p>
+                                    <p><b>Norme euro :</b> <?=strtoupper($consumption->norme);?></p>
+                                    <p><b>Crit'Air :</b> <?=$consumption->critair;?></p>
+                                    <p><b>Consommation mixte :</b> <?=$consumption->consommation;?>L/100 km</p>
+                                    <p><b>Emission de CO2 :</b> <?=$consumption->emission;?> g/km</p>
                                 </div>
                             </div>
                         </div>
@@ -110,22 +148,30 @@
                             <br>    
                             <h5>Garantie</h5>
                             <br>
-                            <p><b>Garantie :</b> 12 mois</p>
+                            <p><b>Garantie :</b> <?=$carInfo['warranty'];?> mois</p>
                         </div>
                         <div class="tab-pane fade" id="options-pane" role="tabpanel" aria-labelledby="options-tab" tabindex="0">
                             <br>
                             <div class="row">
                                 <div class="col-md">
                                     <h5>Extérieur et Chassis</h5>
+                                    <?=$options->exterieur;?>
+                                    <br>
                                     <br>
                                     <h5>Intérieur</h5>
+                                    <?=$options->interieur;?>
+                                    <br>
                                     <br>
                                     <h5>Sécurité</h5>
+                                    <?=$options->securite;?>
+                                    <br>
                                     <br>
                                 </div>
                                 <div class="col-md">
                                     <h5>Autre</h5>
-                                    
+                                    <?=$options->autre;?>
+                                    <br>
+                                    <br>
                                 </div>
                             </div>
                         </div>
@@ -156,7 +202,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="subject" class="form-label">Sujet</label>
-                            <input type="text" class="form-control" id="subject" value="Annonce n°54 - CITROËN C3" required>
+                            <input type="text" class="form-control" id="subject" value="Annonce n°<?=$carInfo['id'];?> - <?=strtoupper($generalInformations->marque);?> <?=strtoupper($generalInformations->modele);?>" required>
                         </div>
                         <div class="mb-3">
                             <label for="message" class="form-label">Message</label>

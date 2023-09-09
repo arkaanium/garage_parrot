@@ -8,10 +8,11 @@ require '../includes/db.php';
 if(isset($_SESSION['id']) && isset($_GET['do'])){
     switch ($_GET['do']) {
         case 'new':
-            if(isset($_SESSION['id']) && isset($_POST['marque']) && isset($_POST['modele']) && isset($_POST['annee']) && isset($_POST['prix']) && isset($_POST['km']) && isset($_POST['energie']) && isset($_POST['motorisation']) && isset($_POST['premiere_main']) && isset($_POST['technique']) && isset($_POST['couleur']) && isset($_POST['portes']) && isset($_POST['places']) && isset($_POST['longueur']) && isset($_POST['puissance_fisc']) && isset($_POST['puissance']) && isset($_POST['norme']) && isset($_POST['critair']) && isset($_POST['consommation']) && isset($_POST['emission']) && isset($_POST['garantie']) && isset($_POST['exterieur']) && isset($_POST['interieur']) && isset($_POST['securite']) && isset($_POST['autre'])){
+            if(isset($_SESSION['id']) && isset($_POST['provenance']) && isset($_POST['marque']) && isset($_POST['modele']) && isset($_POST['annee']) && isset($_POST['prix']) && isset($_POST['km']) && isset($_POST['energie']) && isset($_POST['motorisation']) && isset($_POST['premiere_main']) && isset($_POST['technique']) && isset($_POST['couleur']) && isset($_POST['portes']) && isset($_POST['places']) && isset($_POST['longueur']) && isset($_POST['puissance_fisc']) && isset($_POST['puissance']) && isset($_POST['norme']) && isset($_POST['critair']) && isset($_POST['consommation']) && isset($_POST['emission']) && isset($_POST['garantie']) && isset($_POST['exterieur']) && isset($_POST['interieur']) && isset($_POST['securite']) && isset($_POST['autre'])){
                 $general_informations = [
                     "marque" => htmlspecialchars($_POST['marque']),
                     "modele" => htmlspecialchars($_POST['modele']),
+                    "provenance" => htmlspecialchars($_POST['provenance']),
                     "energie" => htmlspecialchars($_POST['energie']),
                     "motorisation" => htmlspecialchars($_POST['motorisation']),
                     "premiere_main" => htmlspecialchars($_POST['premiere_main']),
@@ -32,10 +33,10 @@ if(isset($_SESSION['id']) && isset($_GET['do'])){
                     "emission" => htmlspecialchars($_POST['emission'])
                 ];
                 $options = [
-                    "exterieur" => htmlspecialchars($_POST['exterieur']),
-                    "interieur" => htmlspecialchars($_POST['interieur']),
-                    "securite" => htmlspecialchars($_POST['securite']),
-                    "autre" => htmlspecialchars($_POST['autre'])
+                    "exterieur" => nl2br(htmlspecialchars($_POST['exterieur'])),
+                    "interieur" => nl2br(htmlspecialchars($_POST['interieur'])),
+                    "securite" => nl2br(htmlspecialchars($_POST['securite'])),
+                    "autre" => nl2br(htmlspecialchars($_POST['autre']))
                 ];
                 
                 $newCar = $bdd->prepare('INSERT INTO cars (author, general_informations, vehicle_power, consumption, warranty, options, year, price, kilometers, creation_date) VALUES (:author, :general_informations, :vehicle_power, :consumption, :warranty, :options, :year, :price, :kilometers, NOW())');
@@ -60,10 +61,11 @@ if(isset($_SESSION['id']) && isset($_GET['do'])){
             }
             break;
         case 'edit':
-            if(isset($_SESSION['id']) && isset($_GET['id']) && isset($_POST['marque']) && isset($_POST['modele']) && isset($_POST['annee']) && isset($_POST['prix']) && isset($_POST['km']) && isset($_POST['energie']) && isset($_POST['motorisation']) && isset($_POST['premiere_main']) && isset($_POST['technique']) && isset($_POST['couleur']) && isset($_POST['portes']) && isset($_POST['places']) && isset($_POST['longueur']) && isset($_POST['puissance_fisc']) && isset($_POST['puissance']) && isset($_POST['norme']) && isset($_POST['critair']) && isset($_POST['consommation']) && isset($_POST['emission']) && isset($_POST['garantie']) && isset($_POST['exterieur']) && isset($_POST['interieur']) && isset($_POST['securite']) && isset($_POST['autre'])){
+            if(isset($_SESSION['id']) && isset($_POST['provenance']) && isset($_GET['id']) && isset($_POST['marque']) && isset($_POST['modele']) && isset($_POST['annee']) && isset($_POST['prix']) && isset($_POST['km']) && isset($_POST['energie']) && isset($_POST['motorisation']) && isset($_POST['premiere_main']) && isset($_POST['technique']) && isset($_POST['couleur']) && isset($_POST['portes']) && isset($_POST['places']) && isset($_POST['longueur']) && isset($_POST['puissance_fisc']) && isset($_POST['puissance']) && isset($_POST['norme']) && isset($_POST['critair']) && isset($_POST['consommation']) && isset($_POST['emission']) && isset($_POST['garantie']) && isset($_POST['exterieur']) && isset($_POST['interieur']) && isset($_POST['securite']) && isset($_POST['autre'])){
                 $general_informations = [
                     "marque" => htmlspecialchars($_POST['marque']),
                     "modele" => htmlspecialchars($_POST['modele']),
+                    "provenance" => htmlspecialchars($_POST['provenance']),
                     "energie" => htmlspecialchars($_POST['energie']),
                     "motorisation" => htmlspecialchars($_POST['motorisation']),
                     "premiere_main" => htmlspecialchars($_POST['premiere_main']),
@@ -84,10 +86,10 @@ if(isset($_SESSION['id']) && isset($_GET['do'])){
                     "emission" => htmlspecialchars($_POST['emission'])
                 ];
                 $options = [
-                    "exterieur" => htmlspecialchars($_POST['exterieur']),
-                    "interieur" => htmlspecialchars($_POST['interieur']),
-                    "securite" => htmlspecialchars($_POST['securite']),
-                    "autre" => htmlspecialchars($_POST['autre'])
+                    "exterieur" => nl2br(htmlspecialchars($_POST['exterieur'])),
+                    "interieur" => nl2br(htmlspecialchars($_POST['interieur'])),
+                    "securite" => nl2br(htmlspecialchars($_POST['securite'])),
+                    "autre" => nl2br(htmlspecialchars($_POST['autre']))
                 ];
                 
                 $editCar = $bdd->prepare('UPDATE cars SET author=:author, general_informations=:general_informations, vehicle_power=:vehicle_power, consumption=:consumption, warranty=:warranty, options=:options, year=:year, price=:price, kilometers=:kilometers WHERE id=:id');
