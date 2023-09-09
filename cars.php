@@ -4,11 +4,13 @@ session_start([
 ]);
 
 if(!isset($_SESSION['id'])){
-    header('Location: ../login');
+    header('Location: login');
     exit();
 }
 
-include('includes/config.php');
+require('includes/config.php');
+require('includes/db.php');
+
 ?>
 <!doctype html>
 <html lang="fr">
@@ -44,6 +46,9 @@ include('includes/config.php');
                 </div>
                 <div class="col-md verticalSeperatorLeft">
                     <br>
+                    <?php
+                    $getCarList = $bdd->query('SELECT id, author, general_informations, price, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date FROM cars ORDER BY id DESC');
+                    ?>
                     <table class="table table-responsive">
                         <thead>
                             <tr>
@@ -55,14 +60,18 @@ include('includes/config.php');
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                
-                                <td><span class="badge text-bg-danger"><i class="fa-solid fa-trash text-light"></i></span> <a href="addCar?id=1&step=2&type=edit"><span class="badge text-bg-success"><i class="fa-solid fa-camera"></i></span></a> <span class="badge text-bg-warning"><i class="fa-solid fa-pen text-light"></i></span></td>
-                                <td><a href="#">25</a></td>
-                                <td>CITROEN C4</td>
-                                <td><b>4582 €</b></td>
-                                <td>25/10/2023 à 15h20</td>
-                            </tr>
+                            <?php
+                            while($carList = $getCarList->fetch()){
+                                $generalInformations = json_decode($carList['general_informations']);
+                            ?>
+                                <tr>
+                                    <td><span class="badge text-bg-danger"><i class="fa-solid fa-trash text-light"></i></span> <a href="addCar?id=<?=$carList['id'];?>&step=2&type=edit"><span class="badge text-bg-success"><i class="fa-solid fa-camera"></i></span></a> <a href="editCar?id=<?=$carList['id'];?>"><span class="badge text-bg-warning"><i class="fa-solid fa-pen text-light"></i></span></a></td>
+                                    <td><a href="#"><?=$carList['id'];?></a></td>
+                                    <td><?=$generalInformations->marque;?> <?=$generalInformations->modele;?></td>
+                                    <td><b><?=number_format($carList['price'],'0',' ',' ');?> €</b></td>
+                                    <td><?=$carList['creation_date'];?></td>
+                                </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                     <a href="addCar" class="btn btn-sm btn-success"><i class="fa-solid fa-square-plus"></i> Publier une annonce</a>
