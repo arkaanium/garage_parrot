@@ -1,4 +1,15 @@
-<?php include('includes/config.php');?>
+<?php 
+session_start([
+    'cookie_lifetime' => 315360000,
+]);
+
+if(!isset($_SESSION['id'])){
+    header('Location: ../login');
+    exit();
+}
+
+include('includes/config.php');
+?>
 <!doctype html>
 <html lang="fr">
     <head>
@@ -46,7 +57,7 @@
                         <tbody>
                             <tr>
                                 
-                                <td><span class="badge text-bg-danger"><i class="fa-solid fa-trash text-light"></i></span> <span class="badge text-bg-warning"><i class="fa-solid fa-pen text-light"></i></span></td>
+                                <td><span class="badge text-bg-danger"><i class="fa-solid fa-trash text-light"></i></span> <a href="addCar?id=1&step=2&type=edit"><span class="badge text-bg-success"><i class="fa-solid fa-camera"></i></span></a> <span class="badge text-bg-warning"><i class="fa-solid fa-pen text-light"></i></span></td>
                                 <td><a href="#">25</a></td>
                                 <td>CITROEN C4</td>
                                 <td><b>4582 €</b></td>

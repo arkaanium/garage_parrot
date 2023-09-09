@@ -1,5 +1,15 @@
 <?php
+session_start([
+    'cookie_lifetime' => 315360000,
+]);
+
+if(!isset($_SESSION['id'])){
+    header('Location: ../login');
+    exit();
+}
+
 include('includes/config.php');
+
 if(!isset($_GET['step']) || $_GET['step'] == ''){
     header('Location: addCar?step=1');
     exit();
@@ -23,7 +33,7 @@ if(!isset($_GET['step']) || $_GET['step'] == ''){
         <br>
         <div class="container ">
             <h5 class="display-6 d-flex">Panneau d'administration</h5>
-            <p class="text-muted text-left"><a href="gestion">Accueil</a> / <a href="cars">Annonces</a> / Nouvelle annonce</p>
+            <p class="text-muted text-left"><a href="gestion">Accueil</a> / <a href="cars">Annonces</a> / <?php if(isset($_GET['step']) && $_GET['step'] == 1){?>Nouvelle annonce<?php }else{?>Ajouter des photos<?php } ?></p>
             <hr>
             <div class="row text-center">
                 <div class="col-md-3 custom-spacing">
@@ -174,8 +184,8 @@ if(!isset($_GET['step']) || $_GET['step'] == ''){
                     <form action="actions/cars.php?do=addImages&id=<?=htmlspecialchars($_GET['id']);?>" method="post" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md">
-                                <h5 class="d-flex">Photos (10 maximum)</h5>
-                                <p class="d-flex text-muted"><b>Minimum 1 photo obligatoire</b>, la première photo sera celle qui apparaîtra dans le catalogue</p>
+                                <h5 class="d-flex">Photos</h5>
+                                <?php if(!isset($_GET['type'])){?><p class="d-flex text-muted"><b>Minimum 1 photo obligatoire</b>, la première photo sera celle qui apparaîtra dans le catalogue</p><?php } ?>
                                 <input type="file" name="picture_1" class="form-control" required>
                                 <input type="file" name="picture_2" class="form-control">
                                 <input type="file" name="picture_3" class="form-control">
@@ -190,7 +200,11 @@ if(!isset($_GET['step']) || $_GET['step'] == ''){
                             </div>
                         </div>
                         <hr>
-                        <button type="submit" class="btn btn-success">Publier</a>
+                        <?php if(isset($_GET['type']) && $_GET['type'] == 'edit'){?>
+                            <button type="submit" class="btn btn-success">Ajouter</a>
+                        <?php }else{ ?>
+                            <button type="submit" class="btn btn-success">Publier</a>
+                        <?php } ?>
                     </form>
                 </div>
                 <?php }?>

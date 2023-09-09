@@ -1,4 +1,15 @@
-<?php include('includes/config.php');?>
+<?php
+session_start([
+    'cookie_lifetime' => 315360000,
+]);
+
+if(!isset($_SESSION['id'])){
+    header('Location: ../login');
+    exit();
+}
+
+include('includes/config.php');
+?>
 <!doctype html>
 <html lang="fr">
     <head>
