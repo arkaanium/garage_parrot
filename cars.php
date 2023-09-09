@@ -28,7 +28,7 @@ require('includes/db.php');
     <body>
         <?php include('includes/adminNavBar.php');?>
         <br>
-        <div class="container ">
+        <div class="container">
             <h5 class="display-6 d-flex">Panneau d'administration</h5>
             <p class="text-muted text-left"><a href="gestion">Accueil</a> / Annonces</p>
             <hr>
