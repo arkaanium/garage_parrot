@@ -8,6 +8,16 @@
     filter: brightness(0.6);
 }
 
+.a-item {
+    height: 480px;
+}
+  
+.a-img {
+    width: 100%;
+    object-fit: fill;
+    height:100%;
+}
+
 .nav-link {
     position: relative;
 }
