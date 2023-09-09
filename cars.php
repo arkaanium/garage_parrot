@@ -65,12 +65,31 @@ require('includes/db.php');
                                 $generalInformations = json_decode($carList['general_informations']);
                             ?>
                                 <tr>
-                                    <td><span class="badge text-bg-danger"><i class="fa-solid fa-trash text-light"></i></span> <a href="addCar?id=<?=$carList['id'];?>&step=2&type=edit"><span class="badge text-bg-success"><i class="fa-solid fa-camera"></i></span></a> <a href="editCar?id=<?=$carList['id'];?>"><span class="badge text-bg-warning"><i class="fa-solid fa-pen text-light"></i></span></a></td>
+                                    <td><span class="badge text-bg-danger" data-bs-toggle="modal" data-bs-target="#delCarConfirmation"><i class="fa-solid fa-trash text-light"></i></span> <a href="addCar?id=<?=$carList['id'];?>&step=2&type=edit"><span class="badge text-bg-success"><i class="fa-solid fa-camera"></i></span></a> <a href="editCar?id=<?=$carList['id'];?>"><span class="badge text-bg-warning"><i class="fa-solid fa-pen text-light"></i></span></a></td>
                                     <td><a href="#"><?=$carList['id'];?></a></td>
                                     <td><?=$generalInformations->marque;?> <?=$generalInformations->modele;?></td>
                                     <td><b><?=number_format($carList['price'],'0',' ',' ');?> €</b></td>
                                     <td><?=$carList['creation_date'];?></td>
                                 </tr>
+                                <div class="modal fade" id="delCarConfirmation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Supprimer l'annonce n°<?=$carList['id'];?> (<?=$generalInformations->marque;?> <?=$generalInformations->modele;?>)</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h5 class="text-danger">Cette action est <b>irréversible</b></h5>
+                                            <span>Voulez vous vraiment supprimer l'annonce <b><?=$generalInformations->marque;?> <?=$generalInformations->modele;?></b> mise en ligne le <b><?=$carList['creation_date'];?></b></span><br>
+                                            <span>L'ensemble des photos associées à cette annonce seront également <b>supprimées définitivement</b></span>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                            <a href="actions/cars.php?do=delete&id=<?=$carList['id'];?>"><button type="button" class="btn btn-sm btn-outline-danger">Confirmer la suppression</button></a>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
                             <?php } ?>
                         </tbody>
                     </table>

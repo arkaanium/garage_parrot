@@ -157,6 +157,16 @@ if(isset($_SESSION['id']) && isset($_GET['do'])){
             if(isset($_SESSION['id']) && isset($_GET['id'])){
                 $delCar = $bdd->prepare('DELETE FROM cars WHERE id=:id');
                 $delCar->execute([ 'id' => htmlspecialchars($_GET['id']) ]);
+
+                $getImages = $bdd->prepare('SELECT name FROM images WHERE annonce_id=:id');
+                $getImages->execute([ 'id' => htmlspecialchars($_GET['id']) ]);
+                while($image = $getImages->fetch()){
+                    unlink('../img/uploads/'.$image['name']);
+                }
+
+                $deleteImages = $bdd->prepare('DELETE FROM images WHERE annonce_id=:id');
+                $deleteImages->execute([ 'id' => htmlspecialchars($_GET['id']) ]);
+
                 header('Location: ../cars?r=deleted');
             }else{
                 header('Location: ../gestion');
