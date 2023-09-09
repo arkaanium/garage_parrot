@@ -175,16 +175,16 @@ if(!isset($_GET['step']) || $_GET['step'] == ''){
                         <div class="row">
                             <div class="col-md">
                                 <h5 class="d-flex">Photos (10 maximum)</h5>
-                                <input type="file" name="picture_1" class="form-control" required>
-                                <input type="file" name="picture_2" class="form-control">
-                                <input type="file" name="picture_3" class="form-control">
-                                <input type="file" name="picture_4" class="form-control">
-                                <input type="file" name="picture_5" class="form-control">
-                                <input type="file" name="picture_6" class="form-control">
-                                <input type="file" name="picture_7" class="form-control">
-                                <input type="file" name="picture_8" class="form-control">
-                                <input type="file" name="picture_9" class="form-control">
-                                <input type="file" name="picture_10" class="form-control">
+                                <input type="file" class="form-control">
+                                <input type="file" class="form-control">
+                                <input type="file" class="form-control">
+                                <input type="file" class="form-control">
+                                <input type="file" class="form-control">
+                                <input type="file" class="form-control">
+                                <input type="file" class="form-control">
+                                <input type="file" class="form-control">
+                                <input type="file" class="form-control">
+                                <input type="file" class="form-control">
                                 <br>
                             </div>
                         </div>
