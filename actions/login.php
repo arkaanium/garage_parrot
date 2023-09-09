@@ -16,7 +16,7 @@ if(!isset($_SESSION['id'])){
             if(hash_hmac('sha256',$_POST['password'],$secret) == $userInfos['password']){
                 $_SESSION['id'] = $userInfos['id'];
                 $_SESSION['name'] = $userInfos['name'];
-                $_SESSION['type'] = $userCount['type'];
+                $_SESSION['type'] = $userInfos['type'];
                 header('Location: ../gestion?r=connected');
             }else{
                 header('Location: login?r=invalid_password');
