@@ -8,7 +8,8 @@ if(!isset($_SESSION['id'])){
     exit();
 }
 
-include('includes/config.php');
+require('includes/config.php');
+require('includes/db.php');
 
 if(!isset($_GET['step']) || $_GET['step'] == ''){
     header('Location: addCar?step=1');
@@ -200,6 +201,24 @@ if(!isset($_GET['step']) || $_GET['step'] == ''){
                                 <input type="file" name="picture_8" class="form-control">
                                 <input type="file" name="picture_9" class="form-control">
                                 <input type="file" name="picture_10" class="form-control">
+                                <?php
+                                $getImages = $bdd->prepare('SELECT id, name FROM images WHERE annonce_id=:id');
+                                $getImages->execute([ 'id' => htmlspecialchars($_GET['id']) ]);
+                                $imageCount = $getImages->rowCount();
+                                if($imageCount > 0){
+                                ?>
+                                <br>
+                                <br>
+                                <h5 class="d-flex">Photos en ligne (<?=$imageCount;?>)</h5>
+                                    <div class="row">
+                                        <?php while($image = $getImages->fetch()){?>
+                                            <div class="col-md-2">
+                                                <img src="img/uploads/<?=$image['name'];?>" width="100"><br><br>
+                                                <?php if($imageCount > 1){?><a href="actions/cars.php?do=deleteImage&imageId=<?=$image['id'];?>&id=<?=htmlspecialchars($_GET['id']);?>"><button class="btn btn-sm btn-darkred" type="button">Supprimer</button></a><?php } ?>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                <?php } ?>
                                 <br>
                             </div>
                         </div>

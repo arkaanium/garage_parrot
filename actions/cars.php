@@ -174,6 +174,21 @@ if(isset($_SESSION['id']) && isset($_GET['do'])){
                 header('Location: ../gestion');
             }
             break;
+        case 'deleteImage':
+            if(isset($_SESSION['id']) && isset($_GET['id']) && isset($_GET['imageId'])){
+                $getImages = $bdd->prepare('SELECT name FROM images WHERE id=:id');
+                $getImages->execute([ 'id' => htmlspecialchars($_GET['imageId']) ]);
+                $image = $getImages->fetch();
+                unlink('../img/uploads/'.$image['name']);
+
+                $deleteImages = $bdd->prepare('DELETE FROM images WHERE id=:id');
+                $deleteImages->execute([ 'id' => htmlspecialchars($_GET['imageId']) ]);
+
+                header('Location: ../addCar?id='.$_GET['id'].'&step=2&type=edit&r=imageDeleted');
+            }else{
+                header('Location: ../gestion');
+            }
+            break;
         default:
             header('Location: ../gestion');
             break;
