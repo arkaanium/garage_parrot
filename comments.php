@@ -10,6 +10,7 @@ if(!isset($_SESSION['id'])){
 
 require('includes/db.php');
 require('includes/config.php');
+require('functions/comments.function.php');
 ?>
 <!doctype html>
 <html lang="fr">
@@ -39,14 +40,14 @@ require('includes/config.php');
                             <h5 class="card-title">Vincent Parrot</h5>
                             <h6 class="card-subtitle mb-2 text-body-secondary">Administrateur</h6>
                             <hr>
-                            <button type="button" class="btn btn-sm btn-danger"><i class="fa-solid fa-right-from-bracket"></i></button> <button type="button" class="btn btn-sm btn-secondary"><i class="fa-solid fa-lock"></i> Modifier mot de passe</button>
+                            <a href="actions/disconnect.php"><button type="button" class="btn btn-sm btn-danger"><i class="fa-solid fa-right-from-bracket"></i></button></a> <button type="button" class="btn btn-sm btn-secondary"><i class="fa-solid fa-lock"></i> Modifier mot de passe</button>
                         </div>
                     </div>
                 </div>
                 <div class="col-md verticalSeperatorLeft">
                     <br>
                     <?php
-                    $getAwaitingReviews = $bdd->query('SELECT * FROM reviews WHERE status=0 ORDER BY id ASC');
+                    $getAwaitingReviews = $bdd->query('SELECT id, author, rate, subject, comment, status, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date FROM reviews WHERE status=0 ORDER BY id ASC');
                     $awaitingReviewsCount = $getAwaitingReviews->rowCount();
                     ?>
                     <h5 class="d-flex">Commentaires en attente (<?=$awaitingReviewsCount;?>)</h5>
@@ -63,8 +64,8 @@ require('includes/config.php');
                             <?php while($awaitingReview = $getAwaitingReviews->fetch()){?>
                             <tr>
                                 <td><a href="#"><span data-bs-toggle="modal" data-bs-target="#confDel<?=$awaitingReview['id'];?>" class="badge text-bg-danger"><i class="fa-solid fa-trash text-light"></i> Supprimer</span></a> <a href="actions/reviews.php?do=acceptReview&id=<?=$awaitingReview['id'];?>"><span class="badge text-bg-success"><i class="fa-solid fa-circle-check"></i> Approuver</span></a></td>
-                                <td>Vincent Parrot</td>
-                                <td><i class="fa-solid fa-star text-warning"></i><i class="fa-solid fa-star text-warning"></i><i class="fa-solid fa-star text-warning"></i><i class="fa-solid fa-star text-warning"></i><i class="fa-solid fa-star text-warning"></i> 6 mois d utilisation et la manette de prends plus la charge et ne s allume plus malgré une utilisation conforme et pas très régulière, j espère que la garantie fera son travail mais déçue.<br><span class="text-muted">Ajouté le 26/01/2023</span></td>
+                                <td><?=$awaitingReview['author'];?></td>
+                                <td><?=getStars($awaitingReview['rate'])?> <b><?=$awaitingReview['subject'];?></b>.<br><?=$awaitingReview['comment'];?>.<br><span class="text-muted">Ajouté le <?=$awaitingReview['creation_date'];?></span></td>
                             </tr>
                             <div class="modal fade" id="confDel<?=$awaitingReview['id'];?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -96,12 +97,12 @@ require('includes/config.php');
                     $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
                     $offset = ($currentPage - 1) * $perPage;
 
-                    $getReviews = $bdd->prepare('SELECT * FROM reviews ORDER BY id DESC LIMIT :l OFFSET :o');
+                    $getReviews = $bdd->prepare('SELECT id, author, rate, subject, comment, status, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date FROM reviews WHERE status=1 ORDER BY id DESC LIMIT :l OFFSET :o');
                     $getReviews->bindParam(':l', $perPage, PDO::PARAM_INT);
                     $getReviews->bindParam(':o', $offset, PDO::PARAM_INT);
                     $getReviews->execute();
 
-                    $getTotal = $bdd->query('SELECT COUNT(*) as total FROM reviews');
+                    $getTotal = $bdd->query('SELECT COUNT(*) as total FROM reviews WHERE status=1');
                     $totalCount = $getTotal->fetch()['total'];
                     $totalPages = ceil($totalCount / $perPage);
                     ?>
@@ -119,8 +120,8 @@ require('includes/config.php');
                             <?php while($review = $getReviews->fetch()){?>
                             <tr>
                                 <td><a href="#"><span class="badge text-bg-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmation<?=$review['id'];?>"><i class="fa-solid fa-trash text-light"></i></span></a></td>
-                                <td>Vincent Parrot</td>
-                                <td><i class="fa-solid fa-star text-warning"></i><i class="fa-solid fa-star text-warning"></i><i class="fa-solid fa-star text-warning"></i><i class="fa-solid fa-star text-warning"></i><i class="fa-solid fa-star text-warning"></i> 6 mois d utilisation et la manette de prends plus la charge et ne s allume plus malgré une utilisation conforme et pas très régulière, j espère que la garantie fera son travail mais déçue.<br><span class="text-muted">Ajouté le 26/01/2023</span></td>
+                                <td><?=$review['author'];?></td>
+                                <td><?=getStars($review['rate'])?> <b><?=$review['subject'];?></b>.<br><?=$review['comment'];?>.<br><span class="text-muted">Ajouté le <?=$review['creation_date'];?></span></td>
                             </tr>
                             <div class="modal fade" id="deleteConfirmation<?=$review['id'];?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -143,8 +144,53 @@ require('includes/config.php');
                             <?php } ?>
                         </tbody>
                     </table>
-                    <button type="button" class="btn btn-sm btn-success"><i class="fa-solid fa-square-plus"></i> Ajouter</button>
-
+                    <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#addReview"><i class="fa-solid fa-square-plus"></i> Ajouter</button>
+                    <div class="modal fade" id="addReview" tabindex="-1" role="dialog" aria-labelledby="addReviewLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addReviewLabel"><i class="fa-solid fa-pen"></i> Ajouter un avis <?=$_SESSION['type'];?></h5>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="actions/reviews.php?do=addReview" method="post">
+                                        <div class="mb-3">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <label for="prenom" class="form-label">Prénom</label>
+                                                    <input type="text" class="form-control" name="prenom" placeholder="Entrez le prénom" required>
+                                                </div>
+                                                <div class="col">
+                                                    <label for="nom" class="form-label">Nom</label>
+                                                    <input type="text" class="form-control" name="nom" placeholder="Entrez le nom" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <label for="nom" class="form-label">Note</label>
+                                        <select class="form-control custom-select" name="rate" id="inputGroupSelect01" required>
+                                            <option value="5" selected>5 étoiles ⭐⭐⭐⭐⭐</option>
+                                            <option value="4">4 étoiles ⭐⭐⭐⭐</option>
+                                            <option value="3">3 étoiles ⭐⭐⭐</option>
+                                            <option value="2">2 étoiles ⭐⭐</option>
+                                            <option value="1">1 étoile ⭐</option>
+                                        </select>
+                                        <br>
+                                        <div class="mb-3">
+                                            <label for="subject" class="form-label">Sujet</label>
+                                            <input type="text" class="form-control" name="subject" placeholder="64 caractères maximum" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="message" class="form-label">Commentaire</label>
+                                            <textarea class="form-control" name="message" rows="6" placeholder="350 caractères maximum" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Fermer</button>
+                                        <button type="submit" class="btn btn-sm btn-success">Ajouter</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     <nav aria-label="Page navigation">
                         <ul class="pagination pagination-danger">
                             <?php for ($page = 1; $page <= $totalPages; $page++) : ?>

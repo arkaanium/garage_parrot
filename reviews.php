@@ -1,4 +1,8 @@
-<?php include('includes/config.php');?>
+<?php
+require('includes/config.php');
+require('includes/db.php');
+require('functions/comments.function.php');
+?>
 <!doctype html>
 <html lang="fr">
     <head>
@@ -20,11 +24,12 @@
                 <div class="col-md-3 verticalSeperatorRight">
                     <h3><i class="fa-solid fa-filter"></i> Trier par note</h3>
                     <br>
-                    <p><i class="fa-solid fa-star text-warning"></i> <i class="fa-solid fa-star text-warning"></i> <i class="fa-solid fa-star text-warning"></i> <i class="fa-solid fa-star text-warning" style="color: red;"></i> <i class="fa-solid fa-star text-warning"></i> 5 étoiles (1)</p>
-                    <p><i class="fa-solid fa-star text-warning"></i> <i class="fa-solid fa-star text-warning"></i> <i class="fa-solid fa-star text-warning"></i> <i class="fa-solid fa-star text-warning"></i> 4 étoiles (0)</p>
-                    <p><i class="fa-solid fa-star text-warning"></i> <i class="fa-solid fa-star text-warning"></i> <i class="fa-solid fa-star text-warning"></i> 3 étoiles (0)</p>
-                    <p><i class="fa-solid fa-star text-warning"></i> <i class="fa-solid fa-star text-warning"></i> 2 étoiles (0)</p>
-                    <p><i class="fa-solid fa-star text-warning"></i> 1 étoile (0)</p>
+                    <p><?=getStars(5);?> 5 étoiles (<a href="reviews?rate=5"><?=getReviewCountByRate(5);?></a>)</p>
+                    <p><?=getStars(4);?> 4 étoiles (<a href="reviews?rate=4"><?=getReviewCountByRate(4);?></a>)</p>
+                    <p><?=getStars(3);?> 3 étoiles (<a href="reviews?rate=3"><?=getReviewCountByRate(3);?></a>)</p>
+                    <p><?=getStars(2);?> 2 étoiles (<a href="reviews?rate=2"><?=getReviewCountByRate(2);?></a>)</p>
+                    <p><?=getStars(1);?> 1 étoile (<a href="reviews?rate=1"><?=getReviewCountByRate(1);?></a>)</p>
+                    <?php if(isset($_GET['rate'])){?><a href="reviews"><span class="badge bg-secondary">Tout afficher</span></a><?php } ?>
                     <hr>
                     <h3><i class="fa-solid fa-pen"></i> Ajouter un avis</h3>
                     <p>Donnez nous votre retour d'expérience avec notre service</p>
@@ -32,31 +37,48 @@
                     <button class="btn btn-darkred" type="button" data-bs-toggle="modal" data-bs-target="#addReview">Ecrire un avis</button>
                 </div>
                 <div class="col-md">
-                    <h3><i class="fa-solid fa-filter"></i> Derniers avis</h3>
+                    <?php
+                    $perPage = 10;
+                    $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
+                    $offset = ($currentPage - 1) * $perPage;
+
+                    if(isset($_GET['rate'])){
+                        $getReview = $bdd->prepare('SELECT author, rate, subject, comment, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date FROM reviews WHERE status=1 AND rate=:rate ORDER BY id DESC LIMIT :l OFFSET :o');
+                        $getReview->bindValue(':rate',htmlspecialchars($_GET['rate']), PDO::PARAM_INT);
+                        $getTotal = $bdd->prepare('SELECT COUNT(*) as total FROM reviews WHERE status=1 AND rate=:rate');
+                        $getTotal->execute([ 'rate' => htmlspecialchars($_GET['rate']) ]);
+                    }else{
+                        $getReview = $bdd->prepare('SELECT author, rate, subject, comment, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date FROM reviews WHERE status=1 ORDER BY id DESC LIMIT :l OFFSET :o');
+                        $getTotal = $bdd->query('SELECT COUNT(*) as total FROM reviews WHERE status=1');
+                    }
+                    $getReview->bindParam(':l', $perPage, PDO::PARAM_INT);
+                    $getReview->bindParam(':o', $offset, PDO::PARAM_INT);
+                    $getReview->execute();
+                    
+                    $totalCount = $getTotal->fetch()['total'];
+                    $totalPages = ceil($totalCount / $perPage);
+                    ?>
+                    <h3><i class="fa-solid fa-filter"></i> Derniers avis (<?=$totalCount;?>)</h3>
+                    <?php while($review = $getReview->fetch()){?>
+                        <br>
+                        <h3 class="reviewAuthor">
+                            <i class="fa-solid fa-circle-user"></i>
+                            <span><?=htmlspecialchars($review['author']);?></span>
+                        </h3>
+                        <?=getStars($review['rate']);?> <b><?=htmlspecialchars($review['subject']);?>.</b>
+                        <p class="text-muted reviewDate">Commenté le <?=$review['creation_date'];?></p>
+                        <p><?=htmlspecialchars($review['comment']);?>.</p>
+                    <?php } ?>
                     <br>
-                    <h3 class="reviewAuthor">
-                        <i class="fa-solid fa-circle-user"></i>
-                        <span>Seth</span>
-                    </h3>
-                    <i class="fa-solid fa-star text-warning"></i> <i class="fa-solid fa-star text-warning"></i> <i class="fa-solid fa-star text-warning"></i> <i class="fa-solid fa-star text-warning"></i> <i class="fa-solid fa-star text-warning"></i> <b>Parfait</b>
-                    <p class="text-muted reviewDate">Commenté le 18/02/2023</p>
-                    <p>6 mois d utilisation et la manette de prends plus la charge et ne s allume plus malgré une utilisation conforme et pas très régulière, j espère que la garantie fera son travail mais déçue</p>
-                    <br>
-                    <h3 class="reviewAuthor">
-                        <i class="fa-solid fa-circle-user"></i>
-                        <span>Seth</span>
-                    </h3>
-                    <i class="fa-solid fa-star text-warning"></i> <i class="fa-solid fa-star text-warning"></i> <i class="fa-solid fa-star text-warning"></i> <i class="fa-solid fa-star text-warning"></i> <i class="fa-solid fa-star text-warning"></i> <b>Parfait</b>
-                    <p class="text-muted reviewDate">Commenté le 18/02/2023</p>
-                    <p>6 mois d utilisation et la manette de prends plus la charge et ne s allume plus malgré une utilisation conforme et pas très régulière, j espère que la garantie fera son travail mais déçue</p>                
-                    <br>
-                    <h3 class="reviewAuthor">
-                        <i class="fa-solid fa-circle-user"></i>
-                        <span>Seth</span>
-                    </h3>
-                    <i class="fa-solid fa-star text-warning"></i> <i class="fa-solid fa-star text-warning"></i> <i class="fa-solid fa-star text-warning"></i> <i class="fa-solid fa-star text-warning"></i> <i class="fa-solid fa-star text-warning"></i> <b>Parfait</b>
-                    <p class="text-muted reviewDate">Commenté le 18/02/2023</p>
-                    <p>6 mois d utilisation et la manette de prends plus la charge et ne s allume plus malgré une utilisation conforme et pas très régulière, j espère que la garantie fera son travail mais déçue</p>
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination pagination-danger">
+                            <?php for ($page = 1; $page <= $totalPages; $page++) : ?>
+                                <li class="page-item <?php echo ($page == $currentPage) ? 'active' : ''; ?>">
+                                    <a class="page-link" href="?page=<?php echo $page; ?>"><?php echo $page; ?></a>
+                                </li>
+                            <?php endfor; ?>
+                        </ul>
+                    </nav>
                 </div>
             </div>
             <br>
@@ -67,36 +89,42 @@
                             <h5 class="modal-title" id="addReviewLabel"><i class="fa-solid fa-pen"></i> Ajouter un avis</h5>
                         </div>
                         <div class="modal-body">
-                            <div class="mb-3">
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="nom" class="form-label">Nom</label>
-                                        <input type="text" class="form-control" id="nom" placeholder="Entrez votre nom" required>
-                                    </div>
-                                    <div class="col">
-                                        <label for="prenom" class="form-label">Prénom</label>
-                                        <input type="text" class="form-control" id="prenom" placeholder="Entrez votre prénom" required>
+                            <form action="actions/reviews.php?do=addReview" method="post">
+                                <div class="mb-3">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="nom" class="form-label">Nom</label>
+                                            <input type="text" class="form-control" name="nom" placeholder="Entrez votre nom" required>
+                                        </div>
+                                        <div class="col">
+                                            <label for="prenom" class="form-label">Prénom</label>
+                                            <input type="text" class="form-control" name="prenom" placeholder="Entrez votre prénom" required>
+                                        </div>
                                     </div>
                                 </div>
+                                <label for="nom" class="form-label">Note</label>
+                                <select class="form-control custom-select" name="rate" id="inputGroupSelect01" required>
+                                    <option value="5" selected>5 étoiles ⭐⭐⭐⭐⭐</option>
+                                    <option value="4">4 étoiles ⭐⭐⭐⭐</option>
+                                    <option value="3">3 étoiles ⭐⭐⭐</option>
+                                    <option value="2">2 étoiles ⭐⭐</option>
+                                    <option value="1">1 étoile ⭐</option>
+                                </select>
+                                <br>
+                                <div class="mb-3">
+                                    <label for="subject" class="form-label">Sujet</label>
+                                    <input type="text" class="form-control" name="subject" placeholder="64 caractères maximum" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="message" class="form-label">Commentaire</label>
+                                    <textarea class="form-control" name="message" rows="6" placeholder="350 caractères maximum" required></textarea>
+                                </div>
                             </div>
-                            <label for="nom" class="form-label">Note</label>
-                            <select class="form-control custom-select" id="inputGroupSelect01" required>
-                                <option value="5" selected>5 étoiles ⭐⭐⭐⭐⭐</option>
-                                <option value="4">4 étoiles ⭐⭐⭐⭐</option>
-                                <option value="3">3 étoiles ⭐⭐⭐</option>
-                                <option value="2">2 étoiles ⭐⭐</option>
-                                <option value="1">1 étoile ⭐</option>
-                            </select>
-                            <br>
-                            <div class="mb-3">
-                                <label for="message" class="form-label">Commentaire</label>
-                                <textarea class="form-control" id="message" rows="6" placeholder="350 caractères maximum" required></textarea>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Fermer</button>
+                                <button type="submit" class="btn btn-sm btn-darkred">Envoyer</button>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">Fermer</button>
-                            <button type="button" class="btn btn-sm btn-darkred">Envoyer</button>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
