@@ -84,6 +84,48 @@ body {
     margin-bottom:4rem;
 }
 
+.reviewsPreview {
+    background-color: #F2F2F2;
+    width:auto;
+    color:white;
+    text-align:center;
+    padding-top:1rem;
+    padding-left:5rem;
+    padding-right:5rem;
+    padding-bottom: 1rem;
+}
+
+.reviewsPreview h1 {
+    display: inline-block;
+    position:relative;
+    color: #D92332;
+}
+
+.reviewsPreview h1:after {
+    content: "";
+    height: 5px;
+    width: 50%;
+    background-color: #D92332;
+    position: absolute;
+    bottom: -.3em;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.reviewsPreview-row {
+    padding-top:4rem;
+    margin-bottom:4rem;
+}
+
+.reviewsPreview p {
+    word-wrap: break-word;
+}
+@media only screen and (max-width: 600px) {
+    .indexCustomCol {
+        padding-top:2rem;
+    }
+}
+
 .footer {
     font-size:12px;
     width:100%;

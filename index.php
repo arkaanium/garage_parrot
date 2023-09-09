@@ -1,4 +1,8 @@
-<?php include('includes/config.php');?>
+<?php
+require('includes/config.php');
+require('includes/db.php');
+require('functions/comments.function.php');
+?>
 <!doctype html>
 <html lang="fr">
     <head>
@@ -56,27 +60,46 @@
             <h1 class="display-5 fw-bolder mb-5">Nos Services</h5>
             <br>
             <div class="row services-row">
-                <div class="col">
-                    <div class="circle">
-                        <p><i class="fas fa-screwdriver-wrench fa-5x"></i></p>
-                    </div>
+                <div class="col-md indexCustomCol">
+                    <p><i class="fas fa-screwdriver-wrench fa-5x"></i></p>
                     <h2 class=" fw-bolder">Réparations</h2>
                     <br>
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
                 </div>
-                <div class="col">
+                <div class="col-md indexCustomCol">
                     <p><i class="fas fa-gear fa-5x"></i></p>
                     <h2 class=" fw-bolder">Entretiens</h2>
                     <br>
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
                 </div>
-                <div class="col">
+                <br>
+                <div class="col-md indexCustomCol">
                     <p><i class="fas fa-car fa-5x"></i></p>
                     <h2 class=" fw-bolder">Occasions</h2>
                     <br>
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
                 </div>
             </div>
+        </div>
+        <div class="reviewsPreview">
+            <br>
+            <h1 class="display-5 fw-bolder mb-5">Ils nous ont fait confiance</h5>
+            <br>
+            <?php
+            $getLatestReviews = $bdd->query('SELECT rate, subject, comment, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date FROM reviews ORDER BY id DESC LIMIT 4');
+            ?>
+            <div class="row reviewsPreview-row text-dark">
+                <?php while($review = $getLatestReviews->fetch()){?>
+                    <div class="col-md-3 indexCustomCol">
+                        <?=getStars($review['rate']);?> <b><?=$review['subject'];?>.</b><br>
+                        <span class="text-muted">Commenté le <?=$review['creation_date'];?></span><br>
+                        <p><?=$review['comment'];?>.</p>
+                    </div>
+                <?php } ?>
+            </div>
+            <a href="reviews" class="btn btn-darkred">Afficher plus</a>
+            <br>
+            <br>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
         <?php include('includes/footer.php');?>
