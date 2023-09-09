@@ -50,12 +50,59 @@ if(isset($_SESSION['id']) && isset($_GET['do'])){
                     'price' => htmlspecialchars($_POST['prix']),
                     'kilometers' => htmlspecialchars($_POST['km'])
                 ]);
-                header('Location: ../addCar?step=2');
+
+                $getID = $bdd->query('SELECT id FROM cars ORDER BY id DESC LIMIT 1');
+                $ID = $getID->fetch();
+
+                header('Location: ../addCar?id='.$ID['id'].'&step=2');
             }else{
                 header('Location: ../gestion');
             }
             break;
-        
+        case 'addImages':
+            if(isset($_FILES['picture_1']) && isset($_GET['id'])){
+                foreach (range(1, 10) as $i) {
+                    var_dump($_FILES['picture_'.$i]);
+                    $img_size = $_FILES['picture_'.$i]['size'];
+                    $error = $_FILES['picture_'.$i]['error'];
+                    if($_FILES['picture_'.$i]['error'] != 4 && ($_FILES['picture_'.$i]['size'] != 0)){
+                        $img_name = $_FILES['picture_'.$i]['name'];
+                        $tmp_name = $_FILES['picture_'.$i]['tmp_name'];
+
+                        if($error === 0){
+                            if($img_size > 1000000) {
+                                header('Location: ../addCar?id='.htmlspecialchars($_GET['id']).'&step=2&r=too_large&image='.$i);
+                            }else{
+                                $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                                $img_ex_lc = strtolower($img_ex);
+
+                                $allowed_exs = array("jpg", "jpeg", "png");
+
+                                if(in_array($img_ex_lc, $allowed_exs)) {
+                                    $new_img_name = uniqid("IMG-", true).'.'.$img_ex_lc;
+                                    $img_upload_path = '../img/uploads/'.$new_img_name;
+                                    move_uploaded_file($tmp_name, $img_upload_path);
+
+                                    $insertImage = $bdd->prepare('INSERT INTO images (name, annonce_id, author, upload_date) VALUES (:name, :annonce_id, :author, NOW())');
+                                    $insertImage->execute([
+                                        'name' => $new_img_name,
+                                        'annonce_id' => htmlspecialchars($_GET['id']),
+                                        'author' => $_SESSION['name']
+                                    ]);
+                                    header('Location: ../cars?r=published');
+                                }else{
+                                    header('Location: ../addCar?id='.htmlspecialchars($_GET['id']).'&step=2&r=invalid_type&image='.$i);
+                                }
+                            }
+                        }else{
+                            header('Location: ../addCar?id='.htmlspecialchars($_GET['id']).'&step=2&r=error&image='.$i);
+                        }
+                    }
+                }
+            }else{
+                header('Location: ../gestion');
+            }
+            break;
         default:
             header('Location: ../gestion');
             break;

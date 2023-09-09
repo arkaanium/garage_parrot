@@ -1,6 +1,6 @@
 <?php
 include('includes/config.php');
-if(!isset($_GET['step'])){
+if(!isset($_GET['step']) || $_GET['step'] == ''){
     header('Location: addCar?step=1');
     exit();
 }
@@ -169,28 +169,28 @@ if(!isset($_GET['step'])){
                         <button type="submit" class="btn btn-success">Etape suivante</a>
                     </form>
                 </div>
-                <?php }else if(isset($_GET['step']) && $_GET['step'] == 2){?>
+                <?php }else if(isset($_GET['step']) && isset($_GET['id']) && $_GET['step'] == 2){?>
                 <div class="col-md verticalSeperatorLeft">
-                    <form>
+                    <form action="actions/cars.php?do=addImages&id=<?=htmlspecialchars($_GET['id']);?>" method="post" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md">
                                 <h5 class="d-flex">Photos (10 maximum)</h5>
-                                <input type="file" class="form-control">
-                                <input type="file" class="form-control">
-                                <input type="file" class="form-control">
-                                <input type="file" class="form-control">
-                                <input type="file" class="form-control">
-                                <input type="file" class="form-control">
-                                <input type="file" class="form-control">
-                                <input type="file" class="form-control">
-                                <input type="file" class="form-control">
-                                <input type="file" class="form-control">
+                                <input type="file" name="picture_1" class="form-control" required>
+                                <input type="file" name="picture_2" class="form-control">
+                                <input type="file" name="picture_3" class="form-control">
+                                <input type="file" name="picture_4" class="form-control">
+                                <input type="file" name="picture_5" class="form-control">
+                                <input type="file" name="picture_6" class="form-control">
+                                <input type="file" name="picture_7" class="form-control">
+                                <input type="file" name="picture_8" class="form-control">
+                                <input type="file" name="picture_9" class="form-control">
+                                <input type="file" name="picture_10" class="form-control">
                                 <br>
                             </div>
                         </div>
+                        <hr>
+                        <button type="submit" class="btn btn-success">Publier</a>
                     </form>
-                    <hr>
-                    <a href="addCar" class="btn btn-success">Publier</a>
                 </div>
                 <?php }?>
             </div>

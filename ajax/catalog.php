@@ -42,10 +42,16 @@ $carsCount = $getCars->rowCount();
 if($carsCount>0){
 ?>
 <div class="row" style="border-left: var(--bs-border-width) solid rgba(199, 200, 201, .8);">
-    <?php while($car = $getCars->fetch()){ $generalInformations = json_decode($car['general_informations']);?>
+    <?php 
+    while($car = $getCars->fetch()){ 
+        $generalInformations = json_decode($car['general_informations']);
+        $getImage = $bdd->prepare('SELECT name FROM images WHERE annonce_id=:id ORDER BY id ASC');
+        $getImage->execute([ 'id' => $car['id'] ]);
+        $image = $getImage->fetch();
+    ?>
         <div class="col-md-3 custom-spacing">
             <div class="card itemShadow">
-                <img src="https://www.automobile-magazine.fr/asset/cms/13275/config/12460/le-restylage-na-pas-bouleverse-le-temperament-de-cette-citroen-c3-elle-continue-a-privilegier-le-confort-au-dynamisme.jpg" class="card-img-top">
+                <img src="img/uploads/<?=$image['name'];?>" class="card-img-top">
                 <div class="card-body text-right priceBadge">
                     <span class="badge bg-dark"><?=number_format($car['price'],'0', ' ', ' ');?> €</span>
                 </div>
