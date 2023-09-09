@@ -62,6 +62,10 @@ if(!isset($_GET['step']) || $_GET['step'] == ''){
                                     <input type="text" class="form-control" name="modele" placeholder="C3" required>
                                 </div>
                                 <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Provenance</span>
+                                    <input type="text" class="form-control" name="provenance" placeholder="C3" required>
+                                </div>
+                                <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Année</span>
                                     <input type="number" class="form-control" name="annee" placeholder="2021" required>
                                 </div>
@@ -139,12 +143,12 @@ if(!isset($_GET['step']) || $_GET['step'] == ''){
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Consommation mixte</span>
-                                    <input type="number" class="form-control" name="consommation" placeholder="5,6" required>
+                                    <input type="number" step="0.1" class="form-control" name="consommation" placeholder="5,6" required>
                                     <span class="input-group-text" id="basic-addon1">L/100 km</span>
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Emission de CO2</span>
-                                    <input type="number" class="form-control" name="emission" placeholder="122" required>
+                                    <input type="number" step="0.1" class="form-control" name="emission" placeholder="122" required>
                                     <span class="input-group-text" id="basic-addon1">g/km</span>
                                 </div>
                             </div>

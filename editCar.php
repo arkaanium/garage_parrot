@@ -71,6 +71,10 @@ require('includes/db.php')
                                     <input type="text" class="form-control" value="<?=$generalInformations->modele;?>" name="modele" placeholder="C3" required>
                                 </div>
                                 <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Provenance</span>
+                                    <input type="text" class="form-control" value="<?=$generalInformations->provenance;?>" name="provenance" placeholder="C3" required>
+                                </div>
+                                <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Année</span>
                                     <input type="number" class="form-control" value="<?=$carInfo['year'];?>" name="annee" placeholder="2021" required>
                                 </div>
@@ -148,12 +152,12 @@ require('includes/db.php')
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Consommation mixte</span>
-                                    <input type="number" class="form-control" value="<?=$consumption->consommation;?>" name="consommation" placeholder="5,6" required>
+                                    <input type="number" class="form-control" step="0.1" value="<?=$consumption->consommation;?>" name="consommation" placeholder="5,6" required>
                                     <span class="input-group-text" id="basic-addon1">L/100 km</span>
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Emission de CO2</span>
-                                    <input type="number" class="form-control" value="<?=$consumption->emission;?>" name="emission" placeholder="122" required>
+                                    <input type="number" class="form-control" step="0.1" value="<?=$consumption->emission;?>" name="emission" placeholder="122" required>
                                     <span class="input-group-text" id="basic-addon1">g/km</span>
                                 </div>
                             </div>
