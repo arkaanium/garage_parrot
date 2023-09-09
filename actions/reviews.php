@@ -1,0 +1,34 @@
+<?php
+session_start([
+    'cookie_lifetime' => 315360000,
+]);
+
+require '../includes/db.php';
+
+if(isset($_SESSION['id']) && isset($_GET['do'])){
+    switch ($_GET['do']) {
+        case 'delReview':
+            if(isset($_GET['id'])){
+                $delReview = $bdd->prepare('DELETE FROM reviews WHERE id=:id');
+                $delReview->execute([ 'id' => htmlspecialchars($_GET['id']) ]);
+                header('Location: ../comments?r=deleted');
+            }else{
+                header('Location: ../comments');
+            }
+            break;
+        case 'acceptReview':
+            if(isset($_GET['id'])){
+                $acceptReview = $bdd->prepare('UPDATE reviews SET status=1 WHERE id=:id');
+                $acceptReview->execute([ 'id' => htmlspecialchars($_GET['id']) ]);
+                header('Location: ../comments?r=accepted');
+            }else{
+                header('Location: ../comments');
+            }
+            break;
+        default:
+            header('Location: ../index');
+            break;
+    }
+}else{
+    header('Location: ../index');
+}
