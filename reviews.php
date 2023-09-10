@@ -24,11 +24,11 @@ require('functions/comments.function.php');
                 <div class="col-md-3 verticalSeperatorRight">
                     <h3><i class="fa-solid fa-filter"></i> Trier par note</h3>
                     <br>
-                    <p><?=getStars(5);?> 5 étoiles (<a href="reviews?rate=5"><?=getReviewCountByRate(5);?></a>)</p>
-                    <p><?=getStars(4);?> 4 étoiles (<a href="reviews?rate=4"><?=getReviewCountByRate(4);?></a>)</p>
-                    <p><?=getStars(3);?> 3 étoiles (<a href="reviews?rate=3"><?=getReviewCountByRate(3);?></a>)</p>
-                    <p><?=getStars(2);?> 2 étoiles (<a href="reviews?rate=2"><?=getReviewCountByRate(2);?></a>)</p>
-                    <p><?=getStars(1);?> 1 étoile (<a href="reviews?rate=1"><?=getReviewCountByRate(1);?></a>)</p>
+                    <p><?=getStars(5);?> 5 étoiles (<a class="a-link" href="reviews?rate=5"><?=getReviewCountByRate(5);?></a>)</p>
+                    <p><?=getStars(4);?> 4 étoiles (<a class="a-link" href="reviews?rate=4"><?=getReviewCountByRate(4);?></a>)</p>
+                    <p><?=getStars(3);?> 3 étoiles (<a class="a-link" href="reviews?rate=3"><?=getReviewCountByRate(3);?></a>)</p>
+                    <p><?=getStars(2);?> 2 étoiles (<a class="a-link" href="reviews?rate=2"><?=getReviewCountByRate(2);?></a>)</p>
+                    <p><?=getStars(1);?> 1 étoile (<a class="a-link" href="reviews?rate=1"><?=getReviewCountByRate(1);?></a>)</p>
                     <?php if(isset($_GET['rate'])){?><a href="reviews"><span class="badge bg-secondary">Tout afficher</span></a><?php } ?>
                     <hr>
                     <h3><i class="fa-solid fa-pen"></i> Ajouter un avis</h3>
