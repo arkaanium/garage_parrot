@@ -1,3 +1,4 @@
+<?php require_once('db.php');?>
 <footer class="footer bg-dark py-5">
     <div class="row align-items-center text-center">
         <div class="col-md">
@@ -8,42 +9,23 @@
         </div>
         <div class="col-md py-2">
             <h5 class="text-light display-6 text-uppercase">Horaires d'ouverture</h5>
+            <?php
+            $getSchedule = $bdd->query('SELECT schedule FROM settings');
+            $schedule = json_decode($getSchedule->fetch()['schedule']);
+            
+            $array = get_object_vars($schedule);
+            $days = array_keys($array);
+            
+            ?>
             <table class="table table-sm table-dark w-50 table-borderless m-auto">
                 <tbody>
+                    <?php $i=0; foreach($schedule as $e){ var_dump($e->pm);?>
                     <tr>
-                        <th scope="row">Lundi</th>
-                        <td>08h00 - 12h00</td>
-                        <td>14h30 - 17h00</td>
+                        <th scope="row"><?=ucfirst($days[$i]);?></th>
+                        <td><?php if($e != 'close' && ($e->am[0] && $e->am[1]) != ''){?><?=$e->am[0];?> - <?=$e->am[1];?><?php }else{ echo 'Fermé'; } ?></td>
+                        <td><?php if($e != 'close' && ($e->pm[0] && $e->pm[1]) != ''){?><?=$e->pm[0];?> - <?=$e->pm[1];?><?php }else{ echo 'Fermé'; } ?></td>
                     </tr>
-                    <tr>
-                        <th scope="row">Mardi</th>
-                        <td>08h00 - 12h00</td>
-                        <td>14h30 - 17h00</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Mercredi</th>
-                        <td>08h00 - 12h00</td>
-                        <td>14h30 - 17h00</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Jeudi</th>
-                        <td>08h00 - 12h00</td>
-                        <td>14h30 - 17h00</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Vendredi</th>
-                        <td>08h00 - 12h00</td>
-                        <td>14h30 - 17h00</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Samedi</th>
-                        <td>08h00 - 12h00</td>
-                        <td>Fermé</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Dimanche</th>
-                        <td>Fermé</td>
-                    </tr>
+                    <?php $i++; } ?>
                 </tbody>
             </table>
         </div>

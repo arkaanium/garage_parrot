@@ -75,6 +75,13 @@ require('includes/db.php');
                         <div class="col-md">
                             <h5 class="d-flex">Horaires</h5>
                             <br>
+                            <?php
+                            $getSchedule = $bdd->query('SELECT schedule FROM settings');
+                            $schedule = json_decode($getSchedule->fetch()['schedule']);
+                            
+                            $array = get_object_vars($schedule);
+                            $days = array_keys($array);
+                            ?>
                             <form action="actions/settings.php?do=updateSchedule" method="post">
                                 <table class="table table-sm table-borderless m-auto">
                                     <thead>
@@ -85,223 +92,39 @@ require('includes/db.php');
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php $i=0; foreach($schedule as $e){?>
                                         <tr>
-                                            <th scope="row">Lundi</th>
+                                            <th scope="row"><?=ucfirst($days[$i]);?></th>
                                             <td>
                                                 <div class="row">
                                                     <div class="col-6">
-                                                        <input type="text" class="form-control" name="lundi_am_start">
+                                                        <input type="text" class="form-control" <?php if($e != 'close'){?>value="<?=$e->am[0];?>"<?php } ?> name="<?=$days[$i];?>_am_start">
                                                     </div>
                                                     <div class="col-6">
-                                                        <input type="text" class="form-control" id="lundi_am_stop">
+                                                        <input type="text" class="form-control" <?php if($e != 'close'){?>value="<?=$e->am[1];?>"<?php } ?> name="<?=$days[$i];?>_am_stop">
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="row">
                                                     <div class="col-6">
-                                                        <input type="text" class="form-control" id="lundi_pm_start">
+                                                        <input type="text" class="form-control" <?php if($e != 'close'){?>value="<?=$e->pm[0];?>"<?php } ?> name="<?=$days[$i];?>_pm_start">
                                                     </div>
                                                     <div class="col-6">
-                                                        <input type="text" class="form-control" id="lundi_pm_stop">
+                                                        <input type="text" class="form-control" <?php if($e != 'close'){?>value="<?=$e->pm[1];?>"<?php } ?> name="<?=$days[$i];?>_pm_stop">
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="lundi_close" value="" id="flexCheckDefault">
+                                                    <input class="form-check-input" type="checkbox" name="<?=$days[$i];?>_close" value="" id="flexCheckDefault" <?php if($e === 'close'){?>checked<?php } ?>>
                                                     <label class="form-check-label" for="flexCheckDefault">
                                                         Fermé
                                                     </label>
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <th scope="row">Mardi</th>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="mardi_am_start">
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="mardi_am_stop">
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="mardi_pm_start">
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="mardi_pm_stop">
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="mardi_close" value="" id="flexCheckDefault">
-                                                    <label class="form-check-label" for="flexCheckDefault">
-                                                        Fermé
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Mercredi</th>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="mercredi_am_start">
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="mercredi_am_stop">
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="mercredi_pm_start">
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="mercredi_pm_stop">
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="mercredi_close" value="" id="flexCheckDefault">
-                                                    <label class="form-check-label" for="flexCheckDefault">
-                                                        Fermé
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Jeudi</th>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="jeudi_am_start">
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="jeudi_am_stop">
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="jeudi_pm_start">
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="jeudi_pm_stop">
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="jeudi_close" value="" id="flexCheckDefault">
-                                                    <label class="form-check-label" for="flexCheckDefault">
-                                                        Fermé
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Vendredi</th>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="vendredi_am_start">
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="vendredi_am_stop">
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="vendredi_pm_start">
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="vendredi_pm_stop">
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="vendredi_close" value="" id="flexCheckDefault">
-                                                    <label class="form-check-label" for="flexCheckDefault">
-                                                        Fermé
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Samedi</th>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="samedi_am_start">
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="samedi_am_stop">
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="samedi_pm_start">
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="samedi_pm_stop">
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="samedi_close" value="" id="flexCheckDefault">
-                                                    <label class="form-check-label" for="flexCheckDefault">
-                                                        Fermé
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">Dimanche</th>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="dimanche_am_start">
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="dimanche_am_stop">
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="dimanche_pm_start">
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <input type="text" class="form-control" id="dimanche_pm_stop">
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" name="dimanche_close" value="" id="flexCheckDefault">
-                                                    <label class="form-check-label" for="flexCheckDefault">
-                                                        Fermé
-                                                    </label>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        <?php $i++; } ?>
                                     </tbody>
                                 </table>
                                 <br>
