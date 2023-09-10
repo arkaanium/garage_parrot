@@ -59,25 +59,29 @@ require('functions/comments.function.php');
             <br>
             <h1 class="display-5 fw-bolder mb-5">Nos Services</h5>
             <br>
+            <?php
+            $getServices = $bdd->query('SELECT services FROM settings');
+            $services = json_decode($getServices->fetch()['services']);
+            ?>
             <div class="row services-row">
                 <div class="col-md indexCustomCol">
                     <p><i class="fas fa-screwdriver-wrench fa-5x"></i></p>
                     <h2 class=" fw-bolder">Réparations</h2>
                     <br>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                    <p><?=$services->repairs;?></p>
                 </div>
                 <div class="col-md indexCustomCol">
                     <p><i class="fas fa-gear fa-5x"></i></p>
                     <h2 class=" fw-bolder">Entretiens</h2>
                     <br>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                    <p><?=$services->maintenance;?></p>
                 </div>
                 <br>
                 <div class="col-md indexCustomCol">
                     <p><i class="fas fa-car fa-5x"></i></p>
                     <h2 class=" fw-bolder">Occasions</h2>
                     <br>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                    <p><?=$services->occasions;?></p>
                 </div>
             </div>
         </div>
@@ -89,13 +93,13 @@ require('functions/comments.function.php');
             $getLatestReviews = $bdd->query('SELECT rate, subject, comment, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date FROM reviews ORDER BY id DESC LIMIT 4');
             ?>
             <div class="row reviewsPreview-row text-dark">
-                <?php while($review = $getLatestReviews->fetch()){?>
-                    <div class="col-md-3 indexCustomCol">
+                <?php $i=0; while($review = $getLatestReviews->fetch()){?>
+                    <div class="col-md-3 indexCustomCol <?php if($i != 3){?>verticalSeperatorRight<?php } ?>">
                         <?=getStars($review['rate']);?> <b><?=$review['subject'];?>.</b><br>
                         <span class="text-muted">Commenté le <?=$review['creation_date'];?></span><br>
                         <p><?=$review['comment'];?>.</p>
                     </div>
-                <?php } ?>
+                <?php $i++; } ?>
             </div>
             <a href="reviews" class="btn btn-darkred">Afficher plus</a>
             <br>
