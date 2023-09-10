@@ -68,9 +68,9 @@ if($carsCount>0){
     ?>
         <div class="col-md-3 custom-spacing">
             <div class="card itemShadow">
-                <img src="img/uploads/<?=$image['name'];?>" class="card-img-top">
+                <img src="img/uploads/<?=$image['name'];?>" class="card-img-top img-size">
                 <div class="card-body text-right priceBadge">
-                    <span class="badge bg-dark"><?=number_format($car['price'],'0', ' ', ' ');?> € <?=$_GET['page'];?></span>
+                    <span class="badge bg-dark"><?=number_format($car['price'],'0', ' ', ' ');?> €</span>
                 </div>
                 <div class="card-body">
                     <h5 class="card-title text-uppercase"><b><?=$generalInformations->marque;?> <?=$generalInformations->modele;?></b></h5>
