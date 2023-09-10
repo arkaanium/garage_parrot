@@ -29,7 +29,7 @@ if(isset($_GET['yearMax']) && $_GET['yearMax'] != ""){
     $yearMax = $_GET['yearMax'];
 }
 
-$perPage = 2;
+$perPage = 21;
 $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
 $offset = ($currentPage - 1) * $perPage;
 
