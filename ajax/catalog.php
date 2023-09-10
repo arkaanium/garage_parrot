@@ -29,16 +29,26 @@ if(isset($_GET['yearMax']) && $_GET['yearMax'] != ""){
     $yearMax = $_GET['yearMax'];
 }
 
-$getCars = $bdd->prepare('SELECT * FROM cars WHERE (kilometers>=:kmMin AND kilometers <=:kmMax) AND (year>=:yearMin AND year <=:yearMax) AND (price>=:priceMin AND price <=:priceMax) ORDER BY id DESC');
-$getCars->execute([
-    'kmMin' => $kmMin,
-    'kmMax' => $kmMax,
-    'priceMin' => $priceMin,
-    'priceMax' => $priceMax,
-    'yearMin' => $yearMin,
-    'yearMax' => $yearMax
-]);
+$perPage = 2;
+$currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
+$offset = ($currentPage - 1) * $perPage;
+
+$getCars = $bdd->prepare('SELECT * FROM cars WHERE (kilometers>=:kmMin AND kilometers <=:kmMax) AND (year>=:yearMin AND year <=:yearMax) AND (price>=:priceMin AND price <=:priceMax) ORDER BY id DESC LIMIT :l OFFSET :o');
+$getCars->bindValue(':kmMin', $kmMin, PDO::PARAM_INT);
+$getCars->bindValue(':kmMax', $kmMax, PDO::PARAM_INT);
+$getCars->bindValue(':priceMin', $priceMin, PDO::PARAM_INT);
+$getCars->bindValue(':priceMax', $priceMax, PDO::PARAM_INT);
+$getCars->bindValue(':yearMin', $yearMin, PDO::PARAM_INT);
+$getCars->bindValue(':yearMax', $yearMax, PDO::PARAM_INT);
+$getCars->bindParam(':l', $perPage, PDO::PARAM_INT);
+$getCars->bindParam(':o', $offset, PDO::PARAM_INT);
+$getCars->execute();
 $carsCount = $getCars->rowCount();
+
+$getTotal = $bdd->query('SELECT COUNT(*) as total FROM cars');
+$totalCount = $getTotal->fetch()['total'];
+$totalPages = ceil($totalCount / $perPage);
+
 if($carsCount>0){
 ?>
 <div class="row" style="border-left: var(--bs-border-width) solid rgba(199, 200, 201, .8);">
@@ -53,7 +63,7 @@ if($carsCount>0){
             <div class="card itemShadow">
                 <img src="img/uploads/<?=$image['name'];?>" class="card-img-top">
                 <div class="card-body text-right priceBadge">
-                    <span class="badge bg-dark"><?=number_format($car['price'],'0', ' ', ' ');?> €</span>
+                    <span class="badge bg-dark"><?=number_format($car['price'],'0', ' ', ' ');?> € <?=$_GET['page'];?></span>
                 </div>
                 <div class="card-body">
                     <h5 class="card-title text-uppercase"><b><?=$generalInformations->marque;?> <?=$generalInformations->modele;?></b></h5>
@@ -70,6 +80,15 @@ if($carsCount>0){
         </div>
     <?php } ?>
 </div>
+<nav aria-label="Page navigation">
+    <ul class="pagination pagination-danger">
+        <?php for ($page = 1; $page <= $totalPages; $page++) : ?>
+            <li class="page-item <?php echo ($page == $currentPage) ? 'active' : ''; ?>">
+                <a class="page-link" href="#" onClick="getCatalog(<?php echo $page; ?>); event.preventDefault();"><?php echo $page; ?></a>
+            </li>
+        <?php endfor; ?>
+    </ul>
+</nav>
 <?php }else{?>
 <div class="alert alert-secondary text-center" role="alert">Aucun résultat</div>
 <?php } ?>
