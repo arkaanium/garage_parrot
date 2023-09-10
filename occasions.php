@@ -42,7 +42,7 @@
                     <br>
                     <hr>
                     <div class="text-center">
-                        <button type="button" class="btn btn-darkred" onclick="getCatalog()">Rechercher</a>
+                        <button type="button" class="btn btn-darkred" onclick="getCatalog(1)">Rechercher</a>
                     </div>
                 </div>
                 <div class="col">

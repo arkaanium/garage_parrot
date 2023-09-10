@@ -45,7 +45,14 @@ $getCars->bindParam(':o', $offset, PDO::PARAM_INT);
 $getCars->execute();
 $carsCount = $getCars->rowCount();
 
-$getTotal = $bdd->query('SELECT COUNT(*) as total FROM cars');
+$getTotal = $bdd->prepare('SELECT COUNT(*) as total FROM cars WHERE (kilometers>=:kmMin AND kilometers <=:kmMax) AND (year>=:yearMin AND year <=:yearMax) AND (price>=:priceMin AND price <=:priceMax)');
+$getTotal->bindValue(':kmMin', $kmMin, PDO::PARAM_INT);
+$getTotal->bindValue(':kmMax', $kmMax, PDO::PARAM_INT);
+$getTotal->bindValue(':priceMin', $priceMin, PDO::PARAM_INT);
+$getTotal->bindValue(':priceMax', $priceMax, PDO::PARAM_INT);
+$getTotal->bindValue(':yearMin', $yearMin, PDO::PARAM_INT);
+$getTotal->bindValue(':yearMax', $yearMax, PDO::PARAM_INT);
+$getTotal->execute();
 $totalCount = $getTotal->fetch()['total'];
 $totalPages = ceil($totalCount / $perPage);
 

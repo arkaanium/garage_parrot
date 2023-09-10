@@ -21,5 +21,5 @@ function getCatalog(page) {
 
 function resetFilters() {
     document.getElementById('filters').reset();
-    getCatalog();
+    getCatalog(1);
 }
