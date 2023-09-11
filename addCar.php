@@ -7,7 +7,7 @@ if(!isset($_GET['step']) || $_GET['step'] == ''){
     exit();
 }
 
-if(isset($_SESSION['type']) && ($_SESSION['type'] != 'admin' || $_SESSION['type'] != 'user')){
+if(isset($_SESSION['type']) && ($_SESSION['type'] != 'admin' && $_SESSION['type'] != 'user')){
     header('Location: gestion');
     exit("Vous n'avez pas accès à cette page");
 }
