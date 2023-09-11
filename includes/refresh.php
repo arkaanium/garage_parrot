@@ -24,5 +24,8 @@ if (isset($_SESSION['id'])){
         header('Location: login?r=sessionExpired');
         exit('Session expirée');
     }
+}else{
+    header('Location: login');
+    exit('Non connecté');
 }
 ?>
