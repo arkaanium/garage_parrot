@@ -104,7 +104,7 @@ if(isset($_SESSION['type']) && ($_SESSION['type'] != 'admin' && $_SESSION['type'
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Longueur</span>
-                                    <input type="number" class="form-control" name="longueur" placeholder="5" required>
+                                    <input type="number" step="0.1" class="form-control" name="longueur" placeholder="5" required>
                                     <span class="input-group-text" id="basic-addon1">m</span>
                                 </div>
                             </div>
