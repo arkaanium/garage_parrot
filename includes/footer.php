@@ -19,7 +19,7 @@
             ?>
             <table class="table table-sm table-dark w-50 table-borderless m-auto">
                 <tbody>
-                    <?php $i=0; foreach($schedule as $e){ var_dump($e->pm);?>
+                    <?php $i=0; foreach($schedule as $e){?>
                     <tr>
                         <th scope="row"><?=ucfirst($days[$i]);?></th>
                         <td><?php if($e != 'close' && ($e->am[0] && $e->am[1]) != ''){?><?=$e->am[0];?> - <?=$e->am[1];?><?php }else{ echo 'Fermé'; } ?></td>
