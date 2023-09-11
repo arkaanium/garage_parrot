@@ -15,7 +15,7 @@ if(isset($_GET['do'])){
                     'subject' => htmlspecialchars($_POST['subject']),
                     'message' => htmlspecialchars($_POST['message']),
                     'email' => htmlspecialchars($_POST['email']),
-                    'phone' => htmlspecialchars($_POST['phone'])
+                    'phone' => htmlspecialchars($_POST['telephone'])
                 ]);
                 if($_GET['return'] == 'contactus'){
                     header('Location: ../contactus?r=messageSent');

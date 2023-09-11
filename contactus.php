@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="col">
                                     <span>0254248956</span><br>
-                                    <span>0254248956</span><br>
+                                    <span>0654248956</span><br>
                                 </div>
                             </div>
                         </div>
