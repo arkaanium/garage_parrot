@@ -1,0 +1,3 @@
+<?php if(isset($_GET['r']) && $_GET['r'] == 'updated'){?><div class="alert alert-success" role="alert">Mot de passe modifié avec succès</div><?php }?>
+<?php if(isset($_GET['r']) && $_GET['r'] == 'passwordMismatch'){?><div class="alert alert-danger" role="alert">Les deux mots de passe ne correspondent pas</div><?php }?>
+<?php if(isset($_GET['r']) && $_GET['r'] == 'invalidPassword'){?><div class="alert alert-danger" role="alert">Mot de passe invalide</div><?php }?>
