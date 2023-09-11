@@ -21,7 +21,7 @@
             <br>
             <div class="row">
                 <div class="col-md" style="border-right: var(--bs-border-width) solid rgba(199, 200, 201, .8);">
-                    <h1 class="display-6"><i class="fas fa-map-location-dot"></i> Où sommes-nous</h1>
+                    <h1 class="display-6 fw-bolder"><i class="fas fa-map-location-dot"></i> Où sommes-nous</h1>
                     <br>
                     <div id="map" style="height: 400px;"></div>
                     <br>
@@ -45,7 +45,7 @@
                     </div>
                 </div>
                 <div class="col-md">
-                    <h1 class="display-6"><i class="fas fa-envelope"></i> Contactez-nous</h1>
+                    <h1 class="display-6 fw-bolder"><i class="fas fa-envelope"></i> Contactez-nous</h1>
                     <br>
                     <?php if(isset($_GET['r']) && $_GET['r'] == 'messageSent'){?><div class="alert alert-success" role="alert">Message envoyé, vous serez recontacté dans les plus brefs délais</div><?php }?>
                     <form action="actions/messages.php?do=sendMessage&return=contactus" method="post">
