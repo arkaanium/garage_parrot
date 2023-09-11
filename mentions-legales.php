@@ -1,7 +1,6 @@
 <?php
 require('includes/config.php');
 require('includes/db.php');
-require('functions/comments.function.php');
 ?>
 <!doctype html>
 <html lang="fr">
