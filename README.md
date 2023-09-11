@@ -7,6 +7,7 @@
 - Si vous utilisez xampp extraire dans le dossier 'htdocs'
 - Executer le script .sql migration
 - Executer le script .sql fixtures (Contient un exemple d'annonce, les paramètres et le compte administrateur par défaut)
+- Modifier si besoin les identifiants de la base de donnée dans le fichier config.php situé dans includes/config.php
 - Pour accéder à l'interface administrateur : http://votresite.fr/login
 
 ## Compte administrateur par défaut
