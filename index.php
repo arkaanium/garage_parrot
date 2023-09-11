@@ -27,21 +27,21 @@ require('functions/comments.function.php');
                 <div class="carousel-item c-item active">
                     <img src="img/c1.jpg" class="d-block w-100 c-img" alt="...">
                     <div class="carousel-caption top-0 mt-4">
-                        <p class="text-uppercase fs-3 mt-5">First slide label</p>
+                        <img class="mt-5" width="200" src="<?=$logo;?>">
                         <h1 class="display-1 fw-bolder text-capitalize">Réparation automobile.</h1>
                     </div>
                 </div>
                 <div class="carousel-item c-item">
                     <img src="https://images.pexels.com/photos/3807386/pexels-photo-3807386.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100 c-img" alt="...">
                     <div class="carousel-caption top-0 mt-4">
-                        <p class="text-uppercase fs-3 mt-5">First slide label</p>
+                    <img class="mt-5" width="200" src="<?=$logo;?>">
                         <h1 class="display-1 fw-bolder text-capitalize">Entretiens.</h1>
                     </div>
                 </div>
                 <div class="carousel-item c-item">
                     <img src="https://images.pexels.com/photos/7144226/pexels-photo-7144226.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100 c-img" alt="...">
                     <div class="carousel-caption top-0 mt-4">
-                        <p class="text-uppercase fs-3 mt-5">Occasions</p>
+                        <img class="mt-5" width="200" src="<?=$logo;?>">
                         <h1 class="display-1 fw-bolder text-capitalize">Occasions.</h1>
                     </div>
                 </div>

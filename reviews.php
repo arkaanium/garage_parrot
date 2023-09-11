@@ -32,7 +32,7 @@ require('functions/comments.function.php');
                     <?php if(isset($_GET['rate'])){?><a href="reviews"><span class="badge bg-secondary">Tout afficher</span></a><?php } ?>
                     <hr>
                     <h3><i class="fa-solid fa-pen"></i> Ajouter un avis</h3>
-                    <p>Donnez nous votre retour d'expérience avec notre service</p>
+                    <p>N'hésitez pas à partager votre expérience avec nos services</p>
                     <br>
                     <button class="btn btn-darkred" type="button" data-bs-toggle="modal" data-bs-target="#addReview">Ecrire un avis</button>
                 </div>
