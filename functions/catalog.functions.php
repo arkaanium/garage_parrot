@@ -14,5 +14,12 @@ function getMinValue($value) {
     return $minVal[$value];
 }
 
+function getTotalCars() {
+    require '../includes/db.php';
+    $getTotal = $bdd->query('SELECT COUNT(*) AS total FROM cars');
+    $total = $getTotal->fetch()['total'];
+    return $total;
+}
+
 ?>
 

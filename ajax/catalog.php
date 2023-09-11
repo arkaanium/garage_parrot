@@ -3,12 +3,21 @@
 include('../includes/db.php');
 include('../functions/catalog.functions.php');
 
-$kmMin = getMinValue('kilometers');
-$priceMin = getMinValue('price');
-$yearMin = getMinValue('year');
-$kmMax = getMaxValue('kilometers');
-$priceMax = getMaxValue('price');
-$yearMax = getMaxValue('year');
+if(getTotalCars() > 0){
+    $kmMin = getMinValue('kilometers');
+    $priceMin = getMinValue('price');
+    $yearMin = getMinValue('year');
+    $kmMax = getMaxValue('kilometers');
+    $priceMax = getMaxValue('price');
+    $yearMax = getMaxValue('year');
+}else{
+    $kmMin = 0;
+    $priceMin = 0;
+    $yearMin = 0;
+    $kmMax = 0;
+    $priceMax = 0;
+    $yearMax = 0;
+}
 
 if(isset($_GET['kmMin']) && $_GET['kmMin'] != ""){
     $kmMin = $_GET['kmMin'];
