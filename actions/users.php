@@ -10,7 +10,7 @@ require '../functions/users.function.php';
 if(isset($_GET['do']) && isset($_SESSION['id'])){
     switch ($_GET['do']) {
         case 'addUser':
-            if(isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['email']) && isset($_POST['type'])){
+            if(isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['email']) && isset($_POST['type']) && isset($_SESSION['type']) && $_SESSION['type'] == 'admin'){
                 $password = randomPassword();
                 $addUser = $bdd->prepare('INSERT INTO users (name, type, email, password, creation_date) VALUES (:name, :type, :email, :password, NOW())');
                 $addUser->execute([
@@ -25,7 +25,7 @@ if(isset($_GET['do']) && isset($_SESSION['id'])){
             }
             break;
         case 'deleteUser':
-            if(isset($_SESSION['id']) && isset($_GET['id'])){
+            if(isset($_SESSION['id']) && isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'admin'){
                 $deleteUser = $bdd->prepare('DELETE FROM users WHERE id=:id');
                 $deleteUser->execute([ 'id' => htmlspecialchars($_GET['id']) ]);
                 header('Location: ../users?r=deleted');
@@ -34,7 +34,7 @@ if(isset($_GET['do']) && isset($_SESSION['id'])){
             }
             break;
         case 'resetPassword':
-            if(isset($_SESSION['id']) && isset($_GET['id'])){
+            if(isset($_SESSION['id']) && isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'admin'){
                 $password = randomPassword();
                 $resetPass = $bdd->prepare('UPDATE user SET password=:password WHERE id=:id');
                 $resetPass->execute([

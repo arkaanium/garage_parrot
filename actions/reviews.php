@@ -8,7 +8,7 @@ require '../includes/db.php';
 if(isset($_GET['do'])){
     switch ($_GET['do']) {
         case 'delReview':
-            if(isset($_SESSION['id']) && isset($_GET['id'])){
+            if(isset($_SESSION['id']) && isset($_GET['id']) && isset($_SESSION['type']) && ($_SESSION['type'] == 'admin' || $_SESSION['type'] == 'user')){
                 $delReview = $bdd->prepare('DELETE FROM reviews WHERE id=:id');
                 $delReview->execute([ 'id' => htmlspecialchars($_GET['id']) ]);
                 header('Location: ../comments?r=deleted');
@@ -17,7 +17,7 @@ if(isset($_GET['do'])){
             }
             break;
         case 'acceptReview':
-            if(isset($_SESSION['id']) && isset($_GET['id'])){
+            if(isset($_SESSION['id']) && isset($_GET['id']) && isset($_SESSION['type']) && ($_SESSION['type'] == 'admin' || $_SESSION['type'] == 'user')){
                 $acceptReview = $bdd->prepare('UPDATE reviews SET status=1 WHERE id=:id');
                 $acceptReview->execute([ 'id' => htmlspecialchars($_GET['id']) ]);
                 header('Location: ../comments?r=accepted');
@@ -27,7 +27,7 @@ if(isset($_GET['do'])){
             break;
         case 'addReview':
             if(isset($_POST['nom']) && isset($_POST['subject']) && isset($_POST['prenom']) && isset($_POST['rate']) && isset($_POST['message'])){
-                if(isset($_SESSION['id']) && $_SESSION['type'] == 'admin'){
+                if(isset($_SESSION['id']) && isset($_SESSION['type']) && ($_SESSION['type'] == 'admin' || $_SESSION['type'] == 'user')){
                     $status = 1;
                 }else{
                     $status = 0;

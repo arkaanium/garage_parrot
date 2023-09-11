@@ -1,14 +1,7 @@
 <?php
-session_start([
-    'cookie_lifetime' => 315360000,
-]);
+require('includes/refresh.php');
 
-if(!isset($_SESSION['id'])){
-    header('Location: login');
-    exit();
-}
-
-include('includes/config.php');
+require('includes/config.php');
 ?>
 <!doctype html>
 <html lang="fr">
@@ -32,18 +25,12 @@ include('includes/config.php');
             <hr>
             <div class="row text-center">
                 <div class="col-md-3 custom-spacing">
-                    <div class="card">
-                        <div class="card-body">
-                            <h1><i class="fa-solid fa-circle-user"></i></h1>
-                            <h5 class="card-title">Vincent Parrot</h5>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">Administrateur</h6>
-                            <hr>
-                            <button type="button" class="btn btn-sm btn-danger"><i class="fa-solid fa-right-from-bracket"></i></button> <button type="button" class="btn btn-sm btn-secondary"><i class="fa-solid fa-lock"></i> Modifier mot de passe</button>
-                        </div>
-                    </div>
+                    <?php include('includes/userInfosCard.php');?>
                 </div>
                 <div class="col-md verticalSeperatorLeft">
+                    <?php include('includes/passwordUpdateMessages.php');?>
                     <div class="row">
+                        <?php if($_SESSION['type'] == 'admin'){?>
                         <div class="col-md-3 custom-spacing">
                             <div class="card">
                                 <div class="card-header">
@@ -54,6 +41,7 @@ include('includes/config.php');
                                 </div>
                             </div>
                         </div>
+                        <?php } ?>
                         <div class="col-md-3 custom-spacing">
                             <div class="card">
                                 <div class="card-header">
@@ -84,6 +72,7 @@ include('includes/config.php');
                                 </div>
                             </div>
                         </div>
+                        <?php if($_SESSION['type'] == 'admin'){?>
                         <div class="col-md-3 custom-spacing">
                             <div class="card">
                                 <div class="card-header">
@@ -94,6 +83,7 @@ include('includes/config.php');
                                 </div>
                             </div>
                         </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>

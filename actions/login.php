@@ -17,6 +17,7 @@ if(!isset($_SESSION['id'])){
                 $_SESSION['id'] = $userInfos['id'];
                 $_SESSION['name'] = $userInfos['name'];
                 $_SESSION['type'] = $userInfos['type'];
+                $_SESSION['password'] = $userInfos['password'];
                 header('Location: ../gestion?r=connected');
             }else{
                 header('Location: login?r=error');

@@ -29,7 +29,7 @@ if(isset($_GET['do'])){
             }
             break;
         case 'markAsRead':
-            if(isset($_SESSION['id']) && isset($_GET['id'])){
+            if(isset($_SESSION['id']) && isset($_GET['id']) && isset($_SESSION['type']) && ($_SESSION['type'] == 'admin' || $_SESSION['type'] == 'user')){
                 $markAsRead = $bdd->prepare('UPDATE messages SET status=1 WHERE id=:id');
                 $markAsRead->execute([ 'id' => htmlspecialchars($_GET['id']) ]);
                 header('Location: ../messages?r=read');
@@ -38,7 +38,7 @@ if(isset($_GET['do'])){
             }
             break;
         case 'deleteMessage':
-            if(isset($_SESSION['id']) && isset($_GET['id'])){
+            if(isset($_SESSION['id']) && isset($_GET['id']) && isset($_SESSION['type']) && ($_SESSION['type'] == 'admin' || $_SESSION['type'] == 'user')){
                 $deleteMessage = $bdd->prepare('DELETE FROM messages WHERE id=:id');
                 $deleteMessage->execute([ 'id' => htmlspecialchars($_GET['id']) ]);
                 header('Location: ../messages?r=deleted');

@@ -5,7 +5,7 @@ session_start([
 
 require '../includes/db.php';
 
-if(isset($_SESSION['id']) && isset($_GET['do'])){
+if(isset($_SESSION['id']) && isset($_GET['do']) && isset($_SESSION['type']) && ($_SESSION['type'] == 'admin' || $_SESSION['type'] == 'user')){
     switch ($_GET['do']) {
         case 'new':
             if(isset($_SESSION['id']) && isset($_POST['provenance']) && isset($_POST['marque']) && isset($_POST['modele']) && isset($_POST['annee']) && isset($_POST['prix']) && isset($_POST['km']) && isset($_POST['energie']) && isset($_POST['motorisation']) && isset($_POST['premiere_main']) && isset($_POST['technique']) && isset($_POST['couleur']) && isset($_POST['portes']) && isset($_POST['places']) && isset($_POST['longueur']) && isset($_POST['puissance_fisc']) && isset($_POST['puissance']) && isset($_POST['norme']) && isset($_POST['critair']) && isset($_POST['consommation']) && isset($_POST['emission']) && isset($_POST['garantie']) && isset($_POST['exterieur']) && isset($_POST['interieur']) && isset($_POST['securite']) && isset($_POST['autre'])){

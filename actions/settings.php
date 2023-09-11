@@ -5,7 +5,7 @@ session_start([
 
 require '../includes/db.php';
 
-if(isset($_SESSION['id']) && isset($_GET['do'])){
+if(isset($_SESSION['id']) && isset($_GET['do']) && isset($_SESSION['type']) && $_SESSION['type'] == 'admin'){
     switch ($_GET['do']) {
         case 'updateServices':
             if(isset($_SESSION['id']) && isset($_POST['repairs']) && isset($_POST['maintenance']) && isset($_POST['occasions'])){
