@@ -1,3 +1,18 @@
+@font-face {
+    font-family: "Rajdhani";
+    src: url('../fonts/Rajdhani/Rajdhani-SemiBold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Barlow";
+    src: url('../fonts/Barlow/Barlow-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 .c-item {
     height: 480px;
 }
@@ -182,4 +197,12 @@ body {
 
 .pagination a {
     color: #6C757D; 
+}
+
+h1, h2, h3 {
+    font-family: "Rajdhani", sans-serif;
+}
+
+body {
+    font-family: "Barlow", sans-serif;
 }
