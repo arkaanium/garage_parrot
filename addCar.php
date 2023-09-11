@@ -1,15 +1,7 @@
 <?php
-session_start([
-    'cookie_lifetime' => 315360000,
-]);
-
-if(!isset($_SESSION['id'])){
-    header('Location: login');
-    exit();
-}
+require('includes/refresh.php');
 
 require('includes/config.php');
-require('includes/db.php');
 
 if(!isset($_GET['step']) || $_GET['step'] == ''){
     header('Location: addCar?step=1');
@@ -38,15 +30,7 @@ if(!isset($_GET['step']) || $_GET['step'] == ''){
             <hr>
             <div class="row text-center">
                 <div class="col-md-3 custom-spacing">
-                    <div class="card">
-                        <div class="card-body">
-                            <h1><i class="fa-solid fa-circle-user"></i></h1>
-                            <h5 class="card-title">Vincent Parrot</h5>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">Administrateur</h6>
-                            <hr>
-                            <button type="button" class="btn btn-sm btn-danger"><i class="fa-solid fa-right-from-bracket"></i></button> <button type="button" class="btn btn-sm btn-secondary"><i class="fa-solid fa-lock"></i> Modifier mot de passe</button>
-                        </div>
-                    </div>
+                    <?php include('includes/userInfosCard.php');?>
                 </div>
                 <?php if(isset($_GET['step']) && $_GET['step'] == 1){?>
                 <div class="col-md verticalSeperatorLeft">
@@ -193,6 +177,7 @@ if(!isset($_GET['step']) || $_GET['step'] == ''){
                                 <?php if(isset($_GET['r']) && $_GET['r'] == 'invavlid_type'){?><div class="alert alert-danger" role="alert">Format d'image invalide. Format accepté : jpeg, jpg et png</div><?php }?>
                                 <?php if(isset($_GET['r']) && $_GET['r'] == 'error'){?><div class="alert alert-danger" role="alert">Une erreur s'est produite lors de l'ajout de votre photo, veuillez réessayer</div><?php }?>
                                 <?php if(isset($_GET['r']) && $_GET['r'] == 'imageDeleted'){?><div class="alert alert-success" role="alert">Photo supprimée avec succès</div><?php }?>
+                                <?php include('includes/passwordUpdateMessages.php');?>
                                 <h5 class="d-flex">Photos</h5>
                                 <?php if(!isset($_GET['type'])){?><p class="d-flex text-muted"><b>Minimum 1 photo obligatoire</b>, la première photo sera celle qui apparaîtra dans le catalogue</p><?php } ?>
                                 <input type="file" name="picture_1" class="form-control" required>

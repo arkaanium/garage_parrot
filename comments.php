@@ -1,14 +1,6 @@
 <?php
-session_start([
-    'cookie_lifetime' => 315360000,
-]);
+require('includes/refresh.php');
 
-if(!isset($_SESSION['id'])){
-    header('Location: login');
-    exit();
-}
-
-require('includes/db.php');
 require('includes/config.php');
 require('functions/comments.function.php');
 ?>
@@ -34,15 +26,7 @@ require('functions/comments.function.php');
             <hr>
             <div class="row text-center">
                 <div class="col-md-3 custom-spacing">
-                    <div class="card">
-                        <div class="card-body">
-                            <h1><i class="fa-solid fa-circle-user"></i></h1>
-                            <h5 class="card-title">Vincent Parrot</h5>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">Administrateur</h6>
-                            <hr>
-                            <a href="actions/disconnect.php"><button type="button" class="btn btn-sm btn-danger"><i class="fa-solid fa-right-from-bracket"></i></button></a> <button type="button" class="btn btn-sm btn-secondary"><i class="fa-solid fa-lock"></i> Modifier mot de passe</button>
-                        </div>
-                    </div>
+                    <?php include('includes/userInfosCard.php');?>
                 </div>
                 <div class="col-md verticalSeperatorLeft">
                     <br>
@@ -50,6 +34,7 @@ require('functions/comments.function.php');
                     <?php if(isset($_GET['r']) && $_GET['r'] == 'deleted'){?><div class="alert alert-success" role="alert">Commentaire supprimé avec succès</div><?php }?>
                     <?php if(isset($_GET['r']) && $_GET['r'] == 'accepted'){?><div class="alert alert-success" role="alert">Commentaire accepté avec succès</div><?php }?>
                     <?php if(isset($_GET['r']) && $_GET['r'] == 'added'){?><div class="alert alert-success" role="alert">Commentaire ajouté avec succès</div><?php }?>
+                    <?php include('includes/passwordUpdateMessages.php');?>
                     <?php
                     $getAwaitingReviews = $bdd->query('SELECT id, author, rate, subject, comment, status, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date FROM reviews WHERE status=0 ORDER BY id ASC');
                     $awaitingReviewsCount = $getAwaitingReviews->rowCount();

@@ -20,6 +20,7 @@ include('includes/config.php');
                         <?php if(isset($_GET['r']) && $_GET['r'] == 'error'){?><div class="alert alert-danger" role="alert">Adresse e-mail ou mot de passe incorrect</div><?php }?>
                         <?php if(isset($_GET['r']) && $_GET['r'] == 'incomplete_fields'){?><div class="alert alert-danger" role="alert">Champs incomplets</div><?php }?>
                         <?php if(isset($_GET['r']) && $_GET['r'] == 'disconnected'){?><div class="alert alert-success" role="alert">Vous êtes maintenant déconnecté</div><?php }?>
+                        <?php if(isset($_GET['r']) && $_GET['r'] == 'sessionExpired'){?><div class="alert alert-success" role="alert">Votre session a expiré, veuillez vous reconnecter</div><?php }?>
                         <hr>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">E-Mail</span>
