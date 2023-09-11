@@ -179,34 +179,34 @@ require('includes/db.php');
                     <hr>
                     <h3 id="contactus"><i class="fas fa-envelope"></i> Envoyer un message</h3>
                     <br>
-                    <form>
+                    <form action="actions/messages.php?do=sendMessage&return=annonce&id=<?=$carInfo['id'];?>" method="post">
                         <div class="mb-3">
                             <div class="row">
                                 <div class="col">
                                     <label for="nom" class="form-label">Nom</label>
-                                    <input type="text" class="form-control" id="nom" placeholder="Entrez votre nom" required>
+                                    <input type="text" class="form-control" name="nom" placeholder="Entrez votre nom" required>
                                 </div>
                                 <div class="col">
                                     <label for="prenom" class="form-label">Prénom</label>
-                                    <input type="text" class="form-control" id="prenom" placeholder="Entrez votre prénom" required>
+                                    <input type="text" class="form-control" name="prenom" placeholder="Entrez votre prénom" required>
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="telephone" class="form-label">Numéro de téléphone</label>
-                            <input type="tel" class="form-control" id="telephone" placeholder="Entrez votre numéro de téléphone" required>
+                            <input type="tel" class="form-control" name="telephone" placeholder="Entrez votre numéro de téléphone" required>
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Adresse e-mail</label>
-                            <input type="email" class="form-control" id="email" placeholder="Entrez votre adresse e-mail" required>
+                            <input type="email" class="form-control" name="email" placeholder="Entrez votre adresse e-mail" required>
                         </div>
                         <div class="mb-3">
                             <label for="subject" class="form-label">Sujet</label>
-                            <input type="text" class="form-control" id="subject" value="Annonce n°<?=$carInfo['id'];?> - <?=strtoupper($generalInformations->marque);?> <?=strtoupper($generalInformations->modele);?>" required>
+                            <input type="text" class="form-control" name="subject" value="Annonce n°<?=$carInfo['id'];?> - <?=strtoupper($generalInformations->marque);?> <?=strtoupper($generalInformations->modele);?>" required>
                         </div>
                         <div class="mb-3">
                             <label for="message" class="form-label">Message</label>
-                            <textarea class="form-control" id="message" rows="6" placeholder="Entrez votre message" required></textarea>
+                            <textarea class="form-control" name="message" rows="6" placeholder="Entrez votre message" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-darkred">Envoyer</button>
                     </form>
