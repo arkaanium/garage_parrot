@@ -9,13 +9,14 @@
 - Executer le script .sql fixtures (Contient un exemple d'annonce, les paramètres et le compte administrateur par défaut)
 - Modifier si besoin les identifiants de la base de donnée dans le fichier config.php situé dans includes/config.php
   ![alt text](https://i.imgur.com/NqgEayW.png)
-- Pour accéder à l'interface administrateur : http://votresite.fr/login
+- Pour accéder à l'interface administrateur en local : http://localhost/login
 
 ## Compte administrateur par défaut
 
 - Email : vincent.parrot@gmail.com
 - Mot de passe : admin
 
+Si vous souhaitez tester le site sur mon hébergement vous pouvez utiliser l'URL incluse dans copie à rendre.
 Vous pouvez librement créer d'autres comptes administrateurs dans l'interface admin > Gestion des utilisateurs. Une fois un autre compte admin créé, vous pourrez supprimer le compte par défaut en vous connectant sur le nouveau.
 
 ## Livrables
