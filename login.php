@@ -9,10 +9,11 @@ include('includes/config.php');
         <title><?=$site_name;?></title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
         <link rel="icon" type="image/x-icon" href="<?=$logo;?>">
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     </head>
     <body class="text-center">
         <div class="vh-100 d-flex justify-content-center align-items-center">
-            <form action="actions/login.php" method="post">
+            <form action="actions/login.php" method="post" id="loginForm">
                 <div class="card" style="width: 30rem;">
                     <div class="card-header"><img src="<?=$logo;?>" width="300"></div>
                     <div class="card-body">
@@ -31,7 +32,7 @@ include('includes/config.php');
                             <input class="form-control" type="password" name="password" placeholder="Mot de passe" required><br>
                         </div>
                         <hr>
-                        <button type="submit" class="btn btn-success">Se connecter</button>
+                        <button type="submit" id="submitBtn" data-sitekey="6Lep-hkoAAAAAHwYItfXA4ddsuBJLTAo15ZPwet4" data-callback='onSubmit' data-action='submit' class="btn btn-success g-recaptcha">Se connecter</button>
                     </div>
                 </div>
                 <br>
@@ -39,5 +40,7 @@ include('includes/config.php');
             </form>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+        <script src="https://www.google.com/recaptcha/api.js"></script>
+        <script type="text/javascript" src="js/login.js"></script>
     </body>
 </html>
