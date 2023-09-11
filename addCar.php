@@ -52,7 +52,7 @@ if(isset($_SESSION['type']) && ($_SESSION['type'] != 'admin' && $_SESSION['type'
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Provenance</span>
-                                    <input type="text" class="form-control" name="provenance" placeholder="C3" required>
+                                    <input type="text" class="form-control" name="provenance" placeholder="France" required>
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">Année</span>
