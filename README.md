@@ -3,7 +3,7 @@
 ## Installation
 
 - Télécharger au format .zip
-- Si vous utilisez wampp extraire le tout dans la raciste du dossier 'www'
+- Si vous utilisez wampp extraire le tout dans le dossier 'www'
 - Si vous utilisez xampp extraire dans le dossier 'htdocs'
 - Executer le script .sql migration
 - Executer le script .sql fixtures (Contient un exemple d'annonce, les paramètres et le compte administrateur par défaut)
