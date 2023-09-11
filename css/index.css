@@ -60,6 +60,7 @@ body::-webkit-scrollbar {
 body {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+    font-family: "Barlow", sans-serif;
 }
 
 .navbar{
@@ -201,8 +202,4 @@ body {
 
 h1, h2, h3 {
     font-family: "Rajdhani", sans-serif;
-}
-
-body {
-    font-family: "Barlow", sans-serif;
 }
