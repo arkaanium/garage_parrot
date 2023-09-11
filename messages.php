@@ -80,42 +80,42 @@ require('includes/db.php');
                                 <td><span class="badge bg-<?=$color;?>"><?=$text;?></span></td>
                             </tr>
                             <div class="modal fade" id="message<?=$message['id'];?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
+                                <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel"><span class="badge bg-<?=$color;?>"><?=$text;?></span> <?=htmlspecialchars($message['subject']);?></h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h5 class="d-flex">Informations de contact</h5>
-                                        <span class="d-flex"><b>Email</b>: <?=htmlspecialchars($message['email']);?></span>
-                                        <span class="d-flex"><b>Téléphone</b>: <?=htmlspecialchars($message['phone']);?></span>
-                                        <br>
-                                        <h5 class="d-flex">Message</h5>
-                                        <span class="d-flex"><?=htmlspecialchars($message['message']);?></span>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                                        <a href="actions/messages.php?do=markAsRead&id=<?=$message['id'];?>"><button type="button" class="btn btn-sm btn-success">Marquer comme lu</button></a>
-                                    </div>
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel"><span class="badge bg-<?=$color;?>"><?=$text;?></span> <?=htmlspecialchars($message['subject']);?></h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h5 class="d-flex">Informations de contact</h5>
+                                            <span class="d-flex"><b>Email</b>: <?=htmlspecialchars($message['email']);?></span>
+                                            <span class="d-flex"><b>Téléphone</b>: <?=htmlspecialchars($message['phone']);?></span>
+                                            <br>
+                                            <h5 class="d-flex">Message</h5>
+                                            <span class="d-flex"><?=htmlspecialchars($message['message']);?></span>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                            <a href="actions/messages.php?do=markAsRead&id=<?=$message['id'];?>"><button type="button" class="btn btn-sm btn-success">Marquer comme lu</button></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="modal fade" id="delete<?=$message['id'];?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Supprimer le message de <?=htmlspecialchars($message['author']);?></h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h5 class="text-danger">Cette action est <b>irréversible</b></h5>
-                                        <span>Voulez vous vraiment supprimer le message intitulé <b><?=htmlspecialchars($message['subject']);?></b> envoyé par <b><?=htmlspecialchars($message['author']);?></b></span>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                                        <a href="actions/messages.php?do=deleteMessage&id=<?=$message['id'];?>"><button type="button" class="btn btn-sm btn-outline-danger">Confirmer la suppression</button></a>
-                                    </div>
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Supprimer le message de <?=htmlspecialchars($message['author']);?></h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h5 class="text-danger">Cette action est <b>irréversible</b></h5>
+                                            <span>Voulez vous vraiment supprimer le message intitulé <b><?=htmlspecialchars($message['subject']);?></b> envoyé par <b><?=htmlspecialchars($message['author']);?></b></span>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                            <a href="actions/messages.php?do=deleteMessage&id=<?=$message['id'];?>"><button type="button" class="btn btn-sm btn-outline-danger">Confirmer la suppression</button></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
