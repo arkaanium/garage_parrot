@@ -1,8 +1,12 @@
 <?php
 require('includes/refresh.php');
-
 require('includes/config.php');
 require('functions/comments.function.php');
+
+if(isset($_SESSION['type']) && ($_SESSION['type'] != 'admin' || $_SESSION['type'] != 'user')){
+    header('Location: gestion');
+    exit("Vous n'avez pas accès à cette page");
+}
 ?>
 <!doctype html>
 <html lang="fr">

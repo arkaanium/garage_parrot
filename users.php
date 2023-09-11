@@ -1,7 +1,11 @@
 <?php
 require('includes/refresh.php');
-
 require('includes/config.php');
+
+if(isset($_SESSION['type']) && $_SESSION['type'] != 'admin'){
+    header('Location: gestion');
+    exit("Vous n'avez pas accès à cette page");
+}
 ?>
 <!doctype html>
 <html lang="fr">

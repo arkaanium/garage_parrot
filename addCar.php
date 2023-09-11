@@ -1,11 +1,15 @@
 <?php
 require('includes/refresh.php');
-
 require('includes/config.php');
 
 if(!isset($_GET['step']) || $_GET['step'] == ''){
     header('Location: addCar?step=1');
     exit();
+}
+
+if(isset($_SESSION['type']) && ($_SESSION['type'] != 'admin' || $_SESSION['type'] != 'user')){
+    header('Location: gestion');
+    exit("Vous n'avez pas accès à cette page");
 }
 ?>
 <!doctype html>
