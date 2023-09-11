@@ -20,7 +20,7 @@ if(isset($_GET['do'])){
                 if($_GET['return'] == 'contactus'){
                     header('Location: ../contactus?r=messageSent');
                 }else if($_GET['return'] == 'annonce' && isset($_GET['id'])){
-                    header('Location: ../annonce?id='.htmlspecialchars($_GET['id']));
+                    header('Location: ../annonce?id='.htmlspecialchars($_GET['id']).'&r=messageSent');
                 }else{
                     header('Location: ../contactus');
                 }
