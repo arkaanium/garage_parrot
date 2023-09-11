@@ -56,7 +56,7 @@ if(isset($_SESSION['type']) && ($_SESSION['type'] != 'admin' && $_SESSION['type'
                                 $generalInformations = json_decode($carList['general_informations']);
                             ?>
                                 <tr>
-                                    <td><span class="badge text-bg-danger" data-bs-toggle="modal" data-bs-target="#delCarConfirmation<?=$carList['id'];?>"><i class="fa-solid fa-trash text-light"></i></span> <a href="addCar?id=<?=$carList['id'];?>&step=2&type=edit"><span class="badge text-bg-success"><i class="fa-solid fa-camera"></i></span></a> <a href="editCar?id=<?=$carList['id'];?>"><span class="badge text-bg-warning"><i class="fa-solid fa-pen text-light"></i></span></a></td>
+                                    <td><a href="#"><span class="badge text-bg-danger" data-bs-toggle="modal" data-bs-target="#delCarConfirmation<?=$carList['id'];?>"><i class="fa-solid fa-trash text-light"></i></span></a> <a href="addCar?id=<?=$carList['id'];?>&step=2&type=edit"><span class="badge text-bg-success"><i class="fa-solid fa-camera"></i></span></a> <a href="editCar?id=<?=$carList['id'];?>"><span class="badge text-bg-warning"><i class="fa-solid fa-pen text-light"></i></span></a></td>
                                     <td><a href="#"><?=$carList['id'];?></a></td>
                                     <td><?=$generalInformations->marque;?> <?=$generalInformations->modele;?></td>
                                     <td><b><?=number_format($carList['price'],'0',' ',' ');?> €</b></td>
@@ -76,7 +76,7 @@ if(isset($_SESSION['type']) && ($_SESSION['type'] != 'admin' && $_SESSION['type'
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                                            <a href="actions/cars.php?do=delCar&id=<?=$carList['id'];?>"><button type="button" class="btn btn-sm btn-outline-danger">Confirmer la suppression</button></a>
+                                            <a href="actions/cars.php?do=delete&id=<?=$carList['id'];?>"><button type="button" class="btn btn-sm btn-outline-danger">Confirmer la suppression</button></a>
                                         </div>
                                         </div>
                                     </div>

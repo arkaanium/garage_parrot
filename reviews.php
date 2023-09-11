@@ -35,6 +35,8 @@ require('functions/comments.function.php');
                     <p>N'hésitez pas à partager votre expérience avec nos services</p>
                     <br>
                     <button class="btn btn-darkred" type="button" data-bs-toggle="modal" data-bs-target="#addReview">Ecrire un avis</button>
+                    <br>
+                    <br>
                 </div>
                 <div class="col-md">
                     <?php
