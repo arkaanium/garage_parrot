@@ -189,6 +189,10 @@ if(!isset($_GET['step']) || $_GET['step'] == ''){
                     <form action="actions/cars.php?do=addImages&id=<?=htmlspecialchars($_GET['id']);?>" method="post" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md">
+                                <?php if(isset($_GET['r']) && $_GET['r'] == 'added'){?><div class="alert alert-success" role="alert">Annonce créée, vous devez maintenant ajouter des photos</div><?php }?>
+                                <?php if(isset($_GET['r']) && $_GET['r'] == 'invavlid_type'){?><div class="alert alert-danger" role="alert">Format d'image invalide. Format accepté : jpeg, jpg et png</div><?php }?>
+                                <?php if(isset($_GET['r']) && $_GET['r'] == 'error'){?><div class="alert alert-danger" role="alert">Une erreur s'est produite lors de l'ajout de votre photo, veuillez réessayer</div><?php }?>
+                                <?php if(isset($_GET['r']) && $_GET['r'] == 'imageDeleted'){?><div class="alert alert-success" role="alert">Photo supprimée avec succès</div><?php }?>
                                 <h5 class="d-flex">Photos</h5>
                                 <?php if(!isset($_GET['type'])){?><p class="d-flex text-muted"><b>Minimum 1 photo obligatoire</b>, la première photo sera celle qui apparaîtra dans le catalogue</p><?php } ?>
                                 <input type="file" name="picture_1" class="form-control" required>

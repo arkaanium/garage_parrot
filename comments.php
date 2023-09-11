@@ -46,6 +46,10 @@ require('functions/comments.function.php');
                 </div>
                 <div class="col-md verticalSeperatorLeft">
                     <br>
+                    <?php if(isset($_GET['r']) && $_GET['r'] == 'error'){?><div class="alert alert-danger" role="alert">Une erreur s'est produite, veuillez réessayer</div><?php }?>
+                    <?php if(isset($_GET['r']) && $_GET['r'] == 'deleted'){?><div class="alert alert-success" role="alert">Commentaire supprimé avec succès</div><?php }?>
+                    <?php if(isset($_GET['r']) && $_GET['r'] == 'accepted'){?><div class="alert alert-success" role="alert">Commentaire accepté avec succès</div><?php }?>
+                    <?php if(isset($_GET['r']) && $_GET['r'] == 'added'){?><div class="alert alert-success" role="alert">Commentaire ajouté avec succès</div><?php }?>
                     <?php
                     $getAwaitingReviews = $bdd->query('SELECT id, author, rate, subject, comment, status, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date FROM reviews WHERE status=0 ORDER BY id ASC');
                     $awaitingReviewsCount = $getAwaitingReviews->rowCount();

@@ -22,7 +22,7 @@ if(isset($_GET['do'])){
                 }else if($_GET['return'] == 'annonce' && isset($_GET['id'])){
                     header('Location: ../annonce?id='.htmlspecialchars($_GET['id']).'&r=messageSent');
                 }else{
-                    header('Location: ../contactus');
+                    header('Location: ../contactus?r=error');
                 }
             }else{
                 header('Location: ../contactus?r=error');
@@ -34,7 +34,7 @@ if(isset($_GET['do'])){
                 $markAsRead->execute([ 'id' => htmlspecialchars($_GET['id']) ]);
                 header('Location: ../messages?r=read');
             }else{
-                header('Location: ../messages');
+                header('Location: ../messages?r=error');
             }
             break;
         case 'deleteMessage':
@@ -43,7 +43,7 @@ if(isset($_GET['do'])){
                 $deleteMessage->execute([ 'id' => htmlspecialchars($_GET['id']) ]);
                 header('Location: ../messages?r=deleted');
             }else{
-                header('Location: ../messages');
+                header('Location: ../messages?r=error');
             }
             break;
         default:

@@ -47,6 +47,7 @@
                 <div class="col-md">
                     <h1 class="display-6"><i class="fas fa-envelope"></i> Contactez-nous</h1>
                     <br>
+                    <?php if(isset($_GET['r']) && $_GET['r'] == 'messageSent'){?><div class="alert alert-success" role="alert">Message envoyé, vous serez recontacté dans les plus brefs délais</div><?php }?>
                     <form action="actions/messages.php?do=sendMessage&return=contactus" method="post">
                         <div class="mb-3">
                             <div class="row">

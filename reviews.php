@@ -58,6 +58,7 @@ require('functions/comments.function.php');
                     $totalCount = $getTotal->fetch()['total'];
                     $totalPages = ceil($totalCount / $perPage);
                     ?>
+                    <?php if(isset($_GET['r']) && $_GET['r'] == 'added'){?><div class="alert alert-success" role="alert">Votre commentaire a bien été pris en compte, il est en cours de traitement et sera mis en ligne prochainement.</div><?php }?>
                     <h3><i class="fa-solid fa-filter"></i> Derniers avis (<?=$totalCount;?>)</h3>
                     <?php while($review = $getReview->fetch()){?>
                         <br>

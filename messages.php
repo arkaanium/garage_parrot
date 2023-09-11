@@ -45,6 +45,9 @@ require('includes/db.php');
                 </div>
                 <div class="col-md verticalSeperatorLeft">
                     <br>
+                    <?php if(isset($_GET['r']) && $_GET['r'] == 'error'){?><div class="alert alert-danger" role="alert">Une erreur s'est produite, veuillez réessayer</div><?php }?>
+                    <?php if(isset($_GET['r']) && $_GET['r'] == 'read'){?><div class="alert alert-success" role="alert">Message marqué comme lu</div><?php }?>
+                    <?php if(isset($_GET['r']) && $_GET['r'] == 'deleted'){?><div class="alert alert-success" role="alert">Message supprimé avec succès</div><?php }?>
                     <?php
                     $getMessages = $bdd->query('SELECT id, author, subject, message, email, phone, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%i\') AS creation_date, status FROM messages ORDER BY id DESC');
                     $messageCount = $getMessages->rowCount();

@@ -179,6 +179,7 @@ require('includes/db.php');
                     <hr>
                     <h3 id="contactus"><i class="fas fa-envelope"></i> Envoyer un message</h3>
                     <br>
+                    <?php if(isset($_GET['r']) && $_GET['r'] == 'messageSent'){?><div class="alert alert-success" role="alert">Message envoyé, vous serez recontacté dans les plus brefs délais</div><?php }?>
                     <form action="actions/messages.php?do=sendMessage&return=annonce&id=<?=$carInfo['id'];?>" method="post">
                         <div class="mb-3">
                             <div class="row">

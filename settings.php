@@ -53,6 +53,8 @@ require('includes/db.php');
                         <div class="col-md-5">
                             <h5 class="d-flex">Services</h5>
                             <br>
+                            <?php if(isset($_GET['r']) && $_GET['r'] == 'servicesUpdated'){?><div class="alert alert-success" role="alert">Services mis à jour avec succès</div><?php }?>
+                            <?php if(isset($_GET['r']) && $_GET['r'] == 'error'){?><div class="alert alert-danger" role="alert">Une erreur s'est produite, veuillez réessayer</div><?php }?>
                             <form action="actions/settings.php?do=updateServices" method="post">
                                 <div class="mb-3">
                                     <label for="message" class="form-label">Réparations</label>
@@ -75,7 +77,10 @@ require('includes/db.php');
                         <div class="col-md">
                             <h5 class="d-flex">Horaires</h5>
                             <br>
-                            <?php
+                            <?php 
+                            if(isset($_GET['r']) && $_GET['r'] == 'scheduleUpdated'){?><div class="alert alert-success" role="alert">Horaires mis à jour avec succès</div><?php }
+                            if(isset($_GET['r']) && $_GET['r'] == 'error'){?><div class="alert alert-danger" role="alert">Une erreur s'est produite, veuillez réessayer</div><?php } 
+
                             $getSchedule = $bdd->query('SELECT schedule FROM settings');
                             $schedule = json_decode($getSchedule->fetch()['schedule']);
                             

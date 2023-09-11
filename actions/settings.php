@@ -22,7 +22,7 @@ if(isset($_SESSION['id']) && isset($_GET['do'])){
 
                 header('Location: ../settings?r=servicesUpdated');
             }else{
-                header('Location: ../settings');
+                header('Location: ../settings?r=error');
             }
             break;
         case 'updateSchedule':
@@ -98,14 +98,14 @@ if(isset($_SESSION['id']) && isset($_GET['do'])){
                     'schedule' => json_encode($schedule)
                 ]);
 
-                header('Location: ../settings?r=servicesUpdated');
+                header('Location: ../settings?r=scheduleUpdated');
 
             }else{
-                header('Location: ../settings');
+                header('Location: ../settings?r=error');
             }
             break;
         default:
-            header('Location: ../settings');
+            header('Location: ../settings?r=error');
             break;
     }
 }else{

@@ -19,10 +19,10 @@ if(!isset($_SESSION['id'])){
                 $_SESSION['type'] = $userInfos['type'];
                 header('Location: ../gestion?r=connected');
             }else{
-                header('Location: login?r=invalid_password');
+                header('Location: login?r=error');
             }
         }else{
-            header('Location: login?r=unknown_user');
+            header('Location: login?r=error');
         }
     }else{
         header('Location: login?r=incomplete_fields');

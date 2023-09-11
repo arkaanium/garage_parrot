@@ -13,7 +13,7 @@ if(isset($_GET['do'])){
                 $delReview->execute([ 'id' => htmlspecialchars($_GET['id']) ]);
                 header('Location: ../comments?r=deleted');
             }else{
-                header('Location: ../comments');
+                header('Location: ../comments?r=error');
             }
             break;
         case 'acceptReview':
@@ -22,7 +22,7 @@ if(isset($_GET['do'])){
                 $acceptReview->execute([ 'id' => htmlspecialchars($_GET['id']) ]);
                 header('Location: ../comments?r=accepted');
             }else{
-                header('Location: ../comments');
+                header('Location: ../comments?r=error');
             }
             break;
         case 'addReview':
@@ -46,7 +46,7 @@ if(isset($_GET['do'])){
                     header('Location: ../reviews?r=added');
                 }
             }else{
-                header('Location: ../comments');
+                header('Location: ../comments?r=error');
             }
             break;
         default:

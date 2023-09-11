@@ -17,6 +17,9 @@ include('includes/config.php');
                     <div class="card-header"><img src="<?=$logo;?>" width="300"></div>
                     <div class="card-body">
                         <h3 class="card-title">Authentification</h3>
+                        <?php if(isset($_GET['r']) && $_GET['r'] == 'error'){?><div class="alert alert-danger" role="alert">Adresse e-mail ou mot de passe incorrect</div><?php }?>
+                        <?php if(isset($_GET['r']) && $_GET['r'] == 'incomplete_fields'){?><div class="alert alert-danger" role="alert">Champs incomplets</div><?php }?>
+                        <?php if(isset($_GET['r']) && $_GET['r'] == 'disconnected'){?><div class="alert alert-success" role="alert">Vous êtes maintenant déconnecté</div><?php }?>
                         <hr>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">E-Mail</span>

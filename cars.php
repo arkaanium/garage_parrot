@@ -46,6 +46,9 @@ require('includes/db.php');
                 </div>
                 <div class="col-md verticalSeperatorLeft">
                     <br>
+                    <?php if(isset($_GET['r']) && $_GET['r'] == 'edited'){?><div class="alert alert-success" role="alert">Annonce modifiée avec succès</div><?php }?>
+                    <?php if(isset($_GET['r']) && $_GET['r'] == 'published'){?><div class="alert alert-success" role="alert">Photo(s) publiée(s) avec succès</div><?php }?>
+                    <?php if(isset($_GET['r']) && $_GET['r'] == 'deleted'){?><div class="alert alert-success" role="alert">Annonce supprimée avec succès</div><?php }?>
                     <?php
                     $getCarList = $bdd->query('SELECT id, author, general_informations, price, DATE_FORMAT(creation_date, \'%d/%m/%Y\') AS creation_date FROM cars ORDER BY id DESC');
                     ?>

@@ -55,7 +55,7 @@ if(isset($_SESSION['id']) && isset($_GET['do'])){
                 $getID = $bdd->query('SELECT id FROM cars ORDER BY id DESC LIMIT 1');
                 $ID = $getID->fetch();
 
-                header('Location: ../addCar?id='.$ID['id'].'&step=2');
+                header('Location: ../addCar?id='.$ID['id'].'&step=2&r=added');
             }else{
                 header('Location: ../gestion');
             }
