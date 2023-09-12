@@ -19,6 +19,7 @@ require('includes/db.php');
         <link rel="stylesheet" href="css/occasions.css">
         <link href="assets/fontawesome/css/fontawesome.css" rel="stylesheet">
         <link href="assets/fontawesome/css/solid.css" rel="stylesheet">
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     </head>
     <body>
         <?php include('includes/menu.php');?>
@@ -180,7 +181,8 @@ require('includes/db.php');
                     <h3 id="contactus"><i class="fas fa-envelope"></i> Envoyer un message</h3>
                     <br>
                     <?php if(isset($_GET['r']) && $_GET['r'] == 'messageSent'){?><div class="alert alert-success" role="alert">Message envoyé, vous serez recontacté dans les plus brefs délais</div><?php }?>
-                    <form action="actions/messages.php?do=sendMessage&return=annonce&id=<?=$carInfo['id'];?>" method="post">
+                    <?php if(isset($_GET['r']) && $_GET['r'] == 'incompleteFields'){?><div class="alert alert-danger" role="alert">Champs incomplets</div><?php }?>
+                    <form action="actions/messages.php?do=sendMessage&return=annonce&id=<?=$carInfo['id'];?>" method="post" id="contactForm">
                         <div class="mb-3">
                             <div class="row">
                                 <div class="col">
@@ -209,7 +211,7 @@ require('includes/db.php');
                             <label for="message" class="form-label">Message</label>
                             <textarea class="form-control" name="message" rows="6" placeholder="Entrez votre message" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-darkred">Envoyer</button>
+                        <button type="submit" id="submitBtn" data-sitekey="6Lep-hkoAAAAAHwYItfXA4ddsuBJLTAo15ZPwet4" data-callback='onSubmit' data-action='submit' class="btn btn-darkred g-recaptcha">Envoyer</button>
                     </form>
                 </div>
                 <div class="col-md">
@@ -220,6 +222,8 @@ require('includes/db.php');
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script type="text/javascript" src="js/annonce.js"></script>
+        <script src="https://www.google.com/recaptcha/api.js"></script>
+        <script type="text/javascript" src="js/contactus.js"></script>
         <?php include('includes/footer.php');?>
     </body>
 </html>

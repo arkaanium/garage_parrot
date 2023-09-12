@@ -8,7 +8,7 @@ require '../includes/db.php';
 if(isset($_GET['do'])){
     switch ($_GET['do']) {
         case 'sendMessage':
-            if(isset($_GET['return']) && isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['telephone']) && isset($_POST['email']) && isset($_POST['subject']) && isset($_POST['message'])){
+            if(isset($_GET['return']) && isset($_POST['nom']) && $_POST['nom'] != '' && isset($_POST['prenom']) && $_POST['prenom'] != '' && isset($_POST['telephone']) && $_POST['telephone'] != '' && isset($_POST['email']) && $_POST['email'] != '' && isset($_POST['subject']) && $_POST['subject'] != '' && isset($_POST['message']) && $_POST['message'] != ''){
                 $sendMessage = $bdd->prepare('INSERT INTO messages (author, subject, message, email, phone, creation_date, status) VALUES (:author, :subject, :message, :email, :phone, NOW(), 0)');
                 $sendMessage->execute([
                     'author' => htmlspecialchars(ucfirst(strtolower($_POST['prenom'])).' '.ucfirst(strtolower($_POST['nom']))),
@@ -25,7 +25,13 @@ if(isset($_GET['do'])){
                     header('Location: ../contactus?r=error');
                 }
             }else{
-                header('Location: ../contactus?r=error');
+                if($_GET['return'] == 'contactus'){
+                    header('Location: ../contactus?r=incompleteFields');
+                }else if($_GET['return'] == 'annonce' && isset($_GET['id'])){
+                    header('Location: ../annonce?id='.htmlspecialchars($_GET['id']).'&r=incompleteFields');
+                }else{
+                    header('Location: ../contactus?r=error');
+                }
             }
             break;
         case 'markAsRead':
