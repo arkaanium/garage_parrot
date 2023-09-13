@@ -38,7 +38,7 @@ if(isset($_SESSION['type']) && ($_SESSION['type'] != 'admin' && $_SESSION['type'
                 </div>
                 <?php if(isset($_GET['step']) && $_GET['step'] == 1){?>
                 <div class="col-md verticalSeperatorLeft">
-                    <form action="actions/cars.php?do=new" method="post">
+                    <form action="actions/cars.php?do=newCar" method="post">
                         <div class="row">
                             <div class="col-md">
                                 <h5 class="d-flex text-left">Informations générales</h5><br>

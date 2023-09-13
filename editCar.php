@@ -47,7 +47,7 @@ if(isset($_SESSION['type']) && ($_SESSION['type'] != 'admin' && $_SESSION['type'
                     $options = json_decode($carInfo['options']);
                     $consumption = json_decode($carInfo['consumption']);
                     ?>
-                    <form action="actions/cars.php?do=edit&id=<?=htmlspecialchars($_GET['id']);?>" method="post">
+                    <form action="actions/cars.php?do=editCar&id=<?=htmlspecialchars($_GET['id']);?>" method="post">
                         <div class="row">
                             <div class="col-md">
                                 <h5 class="d-flex text-left">Informations générales</h5><br>

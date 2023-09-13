@@ -7,7 +7,7 @@ require '../includes/db.php';
 
 if(isset($_SESSION['id']) && isset($_GET['do']) && isset($_SESSION['type']) && ($_SESSION['type'] == 'admin' || $_SESSION['type'] == 'user')){
     switch ($_GET['do']) {
-        case 'new':
+        case 'newCar':
             if(isset($_SESSION['id']) && isset($_POST['provenance']) && isset($_POST['marque']) && isset($_POST['modele']) && isset($_POST['annee']) && isset($_POST['prix']) && isset($_POST['km']) && isset($_POST['energie']) && isset($_POST['motorisation']) && isset($_POST['premiere_main']) && isset($_POST['technique']) && isset($_POST['couleur']) && isset($_POST['portes']) && isset($_POST['places']) && isset($_POST['longueur']) && isset($_POST['puissance_fisc']) && isset($_POST['puissance']) && isset($_POST['norme']) && isset($_POST['critair']) && isset($_POST['consommation']) && isset($_POST['emission']) && isset($_POST['garantie']) && isset($_POST['exterieur']) && isset($_POST['interieur']) && isset($_POST['securite']) && isset($_POST['autre'])){
                 $general_informations = [
                     "marque" => htmlspecialchars($_POST['marque']),
@@ -60,7 +60,7 @@ if(isset($_SESSION['id']) && isset($_GET['do']) && isset($_SESSION['type']) && (
                 header('Location: ../gestion');
             }
             break;
-        case 'edit':
+        case 'editCar':
             if(isset($_SESSION['id']) && isset($_POST['provenance']) && isset($_GET['id']) && isset($_POST['marque']) && isset($_POST['modele']) && isset($_POST['annee']) && isset($_POST['prix']) && isset($_POST['km']) && isset($_POST['energie']) && isset($_POST['motorisation']) && isset($_POST['premiere_main']) && isset($_POST['technique']) && isset($_POST['couleur']) && isset($_POST['portes']) && isset($_POST['places']) && isset($_POST['longueur']) && isset($_POST['puissance_fisc']) && isset($_POST['puissance']) && isset($_POST['norme']) && isset($_POST['critair']) && isset($_POST['consommation']) && isset($_POST['emission']) && isset($_POST['garantie']) && isset($_POST['exterieur']) && isset($_POST['interieur']) && isset($_POST['securite']) && isset($_POST['autre'])){
                 $general_informations = [
                     "marque" => htmlspecialchars($_POST['marque']),
@@ -155,7 +155,7 @@ if(isset($_SESSION['id']) && isset($_GET['do']) && isset($_SESSION['type']) && (
                 header('Location: ../gestion');
             }
             break;
-        case 'delete':
+        case 'deleteCar':
             if(isset($_SESSION['id']) && isset($_GET['id'])){
                 $delCar = $bdd->prepare('DELETE FROM cars WHERE id=:id');
                 $delCar->execute([ 'id' => htmlspecialchars($_GET['id']) ]);
