@@ -77,7 +77,7 @@ if($carsCount>0){
     ?>
         <div class="col-md-3 custom-spacing">
             <div class="card itemShadow">
-                <img src="img/uploads/<?=$image['name'];?>" class="card-img-top img-size">
+                <div style="background-image:url('img/uploads/<?=$image['name'];?>');" class="catalog-image"></div>
                 <div class="card-body text-right priceBadge">
                     <span class="badge bg-dark"><?=number_format($car['price'],'0', ' ', ' ');?> €</span>
                 </div>

@@ -47,8 +47,8 @@ require('includes/db.php');
                             $getImages->execute([ 'id' => htmlspecialchars($carInfo['id']) ]);
                             while($image = $getImages->fetch()){
                             ?>
-                            <div class="carousel-item a-item active">
-                                <img src="img/uploads/<?=$image['name'];?>" class="d-block w-100 a-img" alt="...">
+                            <div class="carousel-item carousel-image active" style="background-image:url('img/uploads/<?=$image['name'];?>');">
+                                
                             </div>
                             <?php } ?>
                         </div>

@@ -29,3 +29,20 @@
     height: 200px;
     width: 100%;
 }
+
+.catalog-image {
+    height:200px;
+    background-size:cover;
+}
+
+.carousel-image {
+    background-repeat:no-repeat;
+    height:500px;
+    background-size: contain;
+    background-position: center center;
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+    filter: invert(100%);
+}
