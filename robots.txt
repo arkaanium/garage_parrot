@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /actions/
+Disallow: /css/
+Disallow: /assets/
+Disallow: /js/
+Disallow: /ajax/
+Disallow: /fonts/
+Disallow: /img/
+Disallow: /functions/
+Disallow: /includes/
