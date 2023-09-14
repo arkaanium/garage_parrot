@@ -7,6 +7,11 @@ require('includes/db.php');
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Page des mentions légales du garage v-parrot">
+        <meta name="keywords" content="v-parrot, garage, vincent, parrot, reparations, entretiens, occasions, vehicules">
+        <meta name="revisit-After" content="15 days">
+        <meta name="robots" content="index,follow">
+        <meta name="rating" content="general">
         <title><?=$site_name;?></title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
         <link rel="icon" type="image/x-icon" href="<?=$logo;?>">
