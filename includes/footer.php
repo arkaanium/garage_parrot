@@ -5,7 +5,7 @@
             <div class="container text-light">
                 <p class="display-5 mb-3">Garage V.Parrot</p>
                 <small class="text-white-50">&copy; Copyright 2023. Tous les droits réservés.</small>
-                <small class="text-white-50"><a href="mentions-legales" class="a-link">Mentions légales</a> <a href="mentions-legales" class="a-link">Politique de confidentialité</a></small>
+                <small class="text-white-50"><a href="mentions-legales" class="a-link">Mentions légales</a> <a href="confidentialite" class="a-link">Politique de confidentialité</a></small>
             </div>
         </div>
         <div class="col-md py-2">
