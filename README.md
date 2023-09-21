@@ -11,6 +11,7 @@
 - Modifier si besoin les identifiants de la base de donnée dans le fichier config.php situé dans includes/config.php
   ![alt text](https://i.imgur.com/NqgEayW.png)
 - Pour accéder à l'interface administrateur en local : http://localhost/login
+- Une fois l'installation terminée pour des raisons de sécurité veuillez supprimer ou déplacer les fichiers sql de la racine de votre site (ainsi que le dossier documents pdf)
 
 ## Compte administrateur par défaut
 
@@ -22,7 +23,7 @@ Vous pouvez librement créer d'autres comptes administrateurs dans l'interface a
 
 ## Livrables
 
-Vous trouverez également dans le .zip 3 fichiers .pdf qui sont les suivants :
+Vous trouverez également dans le .zip 3 fichiers .pdf dans le dossier "Documents pdf" qui sont les suivants :
 - charte_graphique.pdf
 - documentation_technique.pdf (contenant le diagramme de cas d'utilisation, de séquence et de classe ainsi que les technologies choisies)
 - wireframe_desktop_mobile.pdf (contenant tous les wireframes pour chaque page en version mobile et desktop)
