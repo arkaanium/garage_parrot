@@ -36,7 +36,7 @@ if(isset($_GET['do']) && isset($_SESSION['id'])){
         case 'resetPassword':
             if(isset($_SESSION['id']) && isset($_GET['id']) && isset($_SESSION['type']) && $_SESSION['type'] == 'admin'){
                 $password = randomPassword();
-                $resetPass = $bdd->prepare('UPDATE user SET password=:password WHERE id=:id');
+                $resetPass = $bdd->prepare('UPDATE users SET password=:password WHERE id=:id');
                 $resetPass->execute([
                     'password' => htmlspecialchars(hash_hmac('sha256',$password,$secret)),
                     'id' => htmlspecialchars($_GET['id'])
